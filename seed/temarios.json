@@ -1,0 +1,16 @@
+[
+  {
+    "id": "toledo-2025",
+    "nombre": "Manual de buenas prácticas del Colegio de Veterinarios de Toledo (2025)",
+    "credito": null,
+    "carpeta": "seed",
+    "solo_con_contenido": true
+  },
+  {
+    "id": "propio",
+    "nombre": "Temario propio de colonias felinas",
+    "descripcion": "11 temas universales (cualquier municipio, urbano o rural) con 30 preguntas por tema. Texto y esquemas propios; fotos con licencia libre (ver seed/temario-propio/CREDITOS.md).",
+    "credito": "Temario propio de colonias felinas (CC BY-SA 4.0; fotos de sus autores con licencia libre)",
+    "carpeta": "seed/temario-propio"
+  }
+]

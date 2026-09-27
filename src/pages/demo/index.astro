@@ -2,13 +2,16 @@
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import { isDemo } from "../../lib/demo";
-import { PERSONAS, PERSONA_KEYS, personaOf } from "../../lib/demo-personas";
+import { PERSONAS, PERSONA_KEYS, personaConTextos, personaOf } from "../../lib/demo-personas";
+import { cursoDemo } from "../../lib/demo-data";
+import { getDb } from "../../lib/db";
 
 if (!isDemo()) return new Response("No encontrado", { status: 404 });
 const q = Astro.url.searchParams;
 const access = Astro.locals.demoAccess;
 const user = Astro.locals.user;
 const actual = personaOf(user?.email);
+const curso = await cursoDemo(getDb());
 const ICON = { nueva: "book", mitad: "check", examen: "exam", carnet: "card", responsable: "paw", ayuntamiento: "shield" } as const;
 ---
 <Layout title="Demo">
@@ -46,7 +49,7 @@ const ICON = { nueva: "book", mitad: "check", examen: "exam", carnet: "card", re
       )}
       <ul class="demo-personas">
         {PERSONA_KEYS.map((k) => {
-          const p = PERSONAS[k];
+          const p = personaConTextos(k, curso);
           return (
             <li class="card demo-persona">
               <span class="step-icon" aria-hidden="true"><Icon name={ICON[k]} size={24} /></span>

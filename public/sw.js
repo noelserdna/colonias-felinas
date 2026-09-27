@@ -1,5 +1,5 @@
 // Service worker: red primero para páginas (con copia offline), caché primero para estáticos.
-const VERSION = "v6";
+const VERSION = "v7";
 const STATIC = `static-${VERSION}`;
 const PAGES = `pages-${VERSION}`;
 const PRECACHE = ["/offline", "/manifest.webmanifest", "/icons/icon.svg", "/icons/icon-mono.svg", "/icons/icon-192.png", "/icons/badge-96.png"];

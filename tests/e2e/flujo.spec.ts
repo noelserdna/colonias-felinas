@@ -28,8 +28,32 @@ async function login(page: Page, email: string) {
 
 type Bank = { enunciado: string; tipo: "mc" | "multi" | "written"; opciones?: string[]; correcta?: number; correctas?: number[]; respuesta_referencia?: string }[];
 
-async function exportBank(admin: BrowserContext): Promise<Map<string, Bank[number]>> {
-  const res = await admin.request.get("/api/admin/questions/export?format=json");
+/** Temario activo (id) y slugs de sus temas activos, en orden, leídos del panel. */
+async function activeTemario(admin: BrowserContext): Promise<{ id: string; slugs: string[] }> {
+  const page = await admin.newPage();
+  await page.goto("/admin/temarios");
+  const row = page.locator("tr", { has: page.locator(".badge", { hasText: /^activo$/ }) });
+  const href = (await row.getByRole("link", { name: /^Editar el temario/ }).getAttribute("href"))!;
+  await page.close();
+  const id = href.split("/").pop()!;
+  const res = await admin.request.get(`/api/admin/temarios/${id}/export`);
+  expect(res.ok()).toBeTruthy();
+  const paquete = (await res.json()) as { temas: { slug: string; activo: boolean }[] };
+  return { id, slugs: paquete.temas.filter((t) => t.activo).map((t) => t.slug) };
+}
+
+/** Deja activo el temario indicado (con la confirmación de la propia página). */
+async function activar(admin: Page, id: string) {
+  await admin.goto(`/admin/temarios/${id}/activar`);
+  if (await admin.getByText("Este temario ya es el activo").count()) return;
+  await admin.getByLabel(/Entiendo lo que cambia/).check();
+  await admin.getByRole("button", { name: "Activar el temario" }).click();
+  await expect(admin.getByText("Temario activado.")).toBeVisible();
+}
+
+/** Banco de preguntas del temario activo (o del indicado). */
+async function exportBank(admin: BrowserContext, temario?: string): Promise<Map<string, Bank[number]>> {
+  const res = await admin.request.get(`/api/admin/questions/export?format=json${temario ? `&temario=${temario}` : ""}`);
   expect(res.ok()).toBeTruthy();
   const bank = (await res.json()) as Bank;
   return new Map(bank.map((q) => [q.enunciado, q]));
@@ -80,6 +104,7 @@ test("flujo completo: temas, examen final, carnet y revocación", async ({ brows
   await login(admin, ADMIN);
   const bank = await exportBank(adminCtx);
   expect(bank.size).toBeGreaterThan(0);
+  const temario = await activeTemario(adminCtx);
 
   const ctx = await browser.newContext();
   const page = await ctx.newPage();
@@ -106,7 +131,7 @@ test("flujo completo: temas, examen final, carnet y revocación", async ({ brows
   await page.goto("/");
   const unitItems = page.locator("ol.path > li:not(.final):not(.extra)");
   const units = await unitItems.count();
-  expect(units).toBe(8);
+  expect(units).toBe(temario.slugs.length);
   // El suplemento local (si hay) va aparte, sin test.
   if (await page.locator("ol.path > li.extra").count()) await expect(page.locator("ol.path > li.extra a")).toHaveAttribute("href", "/temario/local");
   await expect(unitItems.nth(1)).toHaveClass(/locked/);
@@ -165,13 +190,13 @@ test("flujo completo: temas, examen final, carnet y revocación", async ({ brows
   await page.goto("/examen");
   await expect(page).toHaveURL(/\/$/);
   await page.goto("/temario");
-  await expect(page.locator(".consult-list li")).toHaveCount(8);
+  await expect(page.locator(".consult-list li")).toHaveCount(temario.slugs.length);
   await expect(page.getByRole("heading", { name: "Documentos del Ayuntamiento" })).toBeVisible();
   await page.locator(".consult-list a").nth(2).click();
   await expect(page.locator("article.prose")).toBeVisible();
   await expect(page.getByRole("link", { name: "Hacer el test" })).toHaveCount(0);
-  await page.goto("/temario/legislacion/test");
-  await expect(page).toHaveURL(/\/temario\/legislacion$/);
+  await page.goto(`/temario/${temario.slugs[0]}/test`);
+  await expect(page).toHaveURL(new RegExp(`/temario/${temario.slugs[0]}$`));
   // En «Mi colonia», el primer paso (acreditación) aparece completado.
   await page.goto("/colonia");
   await expect(page.locator(".colonia-step").first()).toHaveClass(/done/);
@@ -315,9 +340,10 @@ test("accesibilidad (axe-core WCAG 2.1 AA) en las pantallas principales, claro y
     await check("/login");
     await check("/accesibilidad");
     await login(page, ADMIN);
+    const temario = await activeTemario(ctx);
     await check("/documentos");
     await check("/privacidad");
-    for (const url of ["/", "/carnet", "/colonia", "/colonia/solicitud", "/colonia/solicitud?anexo=ii", "/colonia/solicitud?anexo=aut", "/temario", "/temario/sanidad-y-salud", "/perfil", "/admin", "/admin/preguntas", "/admin/ajustes", "/admin/programa", "/admin/textos", "/admin/textos/mi-colonia", "/temario/local"]) await check(url);
+    for (const url of ["/", "/carnet", "/colonia", "/colonia/solicitud", "/colonia/solicitud?anexo=ii", "/colonia/solicitud?anexo=aut", "/temario", `/temario/${temario.slugs[2]}`, "/perfil", "/admin", "/admin/temarios", `/admin/temarios/${temario.id}`, "/admin/preguntas", "/admin/ajustes", "/admin/programa", "/admin/textos", "/admin/textos/mi-colonia", "/temario/local"]) await check(url);
     await ctx.close();
   }
 });
@@ -689,7 +715,7 @@ test("fotos y observaciones de los gatos, y relevo automático de la persona res
   expect(res.headers()["cache-control"]).toContain("private");
 
   await rosa.getByLabel("Nueva observación").fill("Cojea un poco de la pata trasera izquierda. Come bien.");
-  await rosa.getByLabel(/^Fotos/).setInputFiles(["public/img/hero-640.jpg", "public/img/temario/p34-1.jpg"]);
+  await rosa.getByLabel(/^Fotos/).setInputFiles(["public/img/portada-640.jpg", "public/img/curso/gatos-comunitarios/gato-calle-pueblo.jpg"]);
   await expect(rosa.locator("#fotos-status")).toContainText("2 fotos listas");
   await rosa.getByRole("button", { name: "Añadir observación" }).click();
   await expect(rosa.getByText("Observación añadida.")).toBeVisible();
@@ -731,4 +757,148 @@ test("fotos y observaciones de los gatos, y relevo automático de la persona res
   await admin.locator("tr", { hasText: nombreColonia }).getByRole("link", { name: /Gestionar colonia/ }).click();
   await admin.getByLabel(/Dar de baja la colonia/).check();
   await admin.getByRole("button", { name: "Guardar", exact: true }).click();
+});
+
+test("temarios: activar otro, progreso separado, volver, preguntas en un temario no activo e importar un paquete", async ({ browser }) => {
+  const { default: AxeBuilder } = await import("@axe-core/playwright");
+  const axe = async (p: Page) => {
+    const r = await new AxeBuilder({ page: p }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+    expect(r.violations.map((v) => `${p.url()}: ${v.id} (${v.nodes.length})`)).toEqual([]);
+  };
+  const adminCtx = await browser.newContext();
+  const admin = await adminCtx.newPage();
+  await login(admin, ADMIN);
+  const original = await activeTemario(adminCtx);
+  // El otro temario del seed (el propio si el activo es el de Toledo, y al revés).
+  const otro = original.id === "propio" ? "toledo-2025" : "propio";
+
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await login(page, `e2e-temarios-${Date.now()}@example.org`);
+
+  /** Aprueba el primer tema del temario activo con su banco de preguntas. */
+  const aprobarPrimero = async (slug: string) => {
+    const bank = await exportBank(adminCtx);
+    await page.goto(`/temario/${slug}/test`);
+    await page.getByRole("button", { name: "Empezar el test" }).click();
+    await answerAll(page, bank, true);
+    await page.getByRole("button", { name: "Enviar respuestas" }).click();
+    await expect(page.getByText("Aprobado", { exact: true })).toBeVisible();
+  };
+  const temasEnInicio = page.locator("ol.path > li:not(.final):not(.extra)");
+
+  try {
+    // Lista de temarios (con axe) y progreso en el temario original.
+    await admin.goto("/admin/temarios");
+    await expect(admin.getByRole("row", { name: /^Temario propio de colonias felinas/ })).toBeVisible();
+    await axe(admin);
+    await aprobarPrimero(original.slugs[0]);
+    await page.goto("/");
+    await expect(temasEnInicio).toHaveCount(original.slugs.length);
+    await expect(temasEnInicio.first()).toHaveClass(/done/);
+
+    // Página de impacto: avisa de quien tiene progreso sin carnet y pide confirmación en la propia página.
+    await admin.goto(`/admin/temarios/${otro}/activar`);
+    await expect(admin.getByRole("heading", { name: "Qué va a pasar" })).toBeVisible();
+    await expect(admin.getByText(/sin carnet tienen? temas aprobados del temario actual/)).toBeVisible();
+    await axe(admin);
+    await admin.getByRole("button", { name: "Activar el temario" }).click();
+    await expect(admin).toHaveURL(new RegExp(`/admin/temarios/${otro}/activar`)); // sin marcar la casilla no se activa
+    await activar(admin, otro);
+    const nuevo = await activeTemario(adminCtx);
+    expect(nuevo.id).toBe(otro);
+
+    // La persona empieza el nuevo temario desde el principio; el test sale de su banco.
+    await page.goto("/");
+    await expect(temasEnInicio).toHaveCount(nuevo.slugs.length);
+    await expect(temasEnInicio.first()).toHaveClass(/current/);
+    await expect(temasEnInicio.nth(1)).toHaveClass(/locked/);
+    expect((await page.goto(`/temario/${original.slugs.find((s) => !nuevo.slugs.includes(s))}`))!.status()).toBe(404);
+    await aprobarPrimero(nuevo.slugs[0]);
+    await page.goto("/");
+    await expect(temasEnInicio.first()).toHaveClass(/done/);
+    await expect(temasEnInicio.nth(1)).toHaveClass(/current/);
+    await page.goto("/examen");
+    await expect(page.getByText("Aprueba todos los temas")).toBeVisible();
+
+    // Con todos los temas del nuevo temario aprobados, el examen final sale solo de su banco.
+    const bankNuevo = await exportBank(adminCtx);
+    for (const slug of nuevo.slugs.slice(1)) {
+      await page.goto(`/temario/${slug}/test`);
+      await page.getByRole("button", { name: "Empezar el test" }).click();
+      await answerAll(page, bankNuevo, true);
+      await page.getByRole("button", { name: "Enviar respuestas" }).click();
+      await expect(page.getByText("Aprobado", { exact: true })).toBeVisible();
+    }
+    await page.goto("/perfil");
+    await page.getByLabel("Nombre").fill("Tema");
+    await page.getByLabel("Apellidos").fill("Rio Prueba");
+    await page.locator('input[name="consent"]').check();
+    await page.getByRole("button", { name: "Guardar" }).click();
+    await page.goto("/examen");
+    await page.getByRole("button", { name: "Empezar el examen final" }).click();
+    await answerAll(page, bankNuevo, true); // falla si alguna pregunta no es del banco del nuevo temario
+
+    // Volver al temario original recupera el progreso que se tenía.
+    await activar(admin, original.id);
+    await page.goto("/");
+    await expect(temasEnInicio).toHaveCount(original.slugs.length);
+    await expect(temasEnInicio.first()).toHaveClass(/done/);
+  } finally {
+    await activar(admin, original.id);
+  }
+
+  // Preguntas en un temario no activo: se crean en su tema (aunque otro temario repita el slug) sin tocar el activo.
+  await admin.goto(`/admin/preguntas?temario=${otro}`);
+  await expect(admin.getByText("no está activo")).toBeVisible();
+  await admin.getByRole("link", { name: "Nueva pregunta" }).click();
+  const enunciado = `¿Pregunta E2E del temario ${otro} ${Date.now()}?`;
+  const temaCer = admin.locator("#tema option", { hasText: "método CER" });
+  await admin.getByLabel("Tema", { exact: true }).selectOption((await temaCer.getAttribute("value"))!);
+  await admin.getByLabel("Enunciado", { exact: true }).fill(enunciado);
+  await admin.getByLabel("Opciones (una por línea)").fill("Sí\nNo");
+  await admin.getByLabel("Número de la opción correcta").fill("1");
+  await admin.locator('#qform input[name="activo"]').uncheck();
+  await admin.getByRole("button", { name: "Guardar" }).click();
+  await expect(admin.getByText("Guardada.")).toBeVisible();
+  await expect(admin.getByText(/Temario: .*\(no activo\)/)).toBeVisible();
+  const enOtro = await exportBank(adminCtx, otro);
+  expect(enOtro.has(enunciado)).toBe(true);
+  expect((await exportBank(adminCtx)).has(enunciado)).toBe(false);
+  // Al volver a guardarla sigue en su temario.
+  await admin.getByRole("button", { name: "Guardar" }).click();
+  await expect(admin.getByText("Guardada.")).toBeVisible();
+  expect((await exportBank(adminCtx, otro)).has(enunciado)).toBe(true);
+
+  // Exportar e importar un paquete: dos temas cuyos slugs ya existen en otros temarios.
+  const paquete = await (await adminCtx.request.get(`/api/admin/temarios/propio/export`)).json();
+  const id = `e2e-${Date.now()}`;
+  const temas = paquete.temas.filter((t: { slug: string }) => ["metodo-cer", "programa-municipal"].includes(t.slug));
+  const pequeño = {
+    ...paquete,
+    temario: { ...paquete.temario, id, nombre: `Temario E2E ${id}` },
+    temas,
+    preguntas: paquete.preguntas.filter((q: { tema: string }) => ["metodo-cer", "programa-municipal"].includes(q.tema)).slice(0, 6),
+  };
+  const subir = async (json: unknown) => {
+    await admin.goto("/admin/temarios");
+    await admin.getByLabel("Paquete del temario (JSON)").setInputFiles({ name: "temario.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(json)) });
+    await admin.getByRole("button", { name: "Importar temario" }).click();
+  };
+  await subir(pequeño);
+  await expect(admin.getByText(`Temario «${id}» importado: 2 temas y 6 preguntas.`)).toBeVisible();
+  // Mismo id: error claro y nada importado. Paquete con una pregunta mal: todo o nada.
+  await subir(pequeño);
+  await expect(admin.getByText(/Ya existe un temario con el identificador/)).toBeVisible();
+  await subir({ ...pequeño, temario: { ...pequeño.temario, id: `${id}-b` }, preguntas: [...pequeño.preguntas, { tema: "no-existe", tipo: "mc", enunciado: "¿Tema inexistente?", opciones: ["a", "b"], correcta: 0 }] });
+  await expect(admin.getByText(/tema desconocido no-existe/)).toBeVisible();
+  expect((await adminCtx.request.get(`/api/admin/temarios/${id}-b/export`)).status()).toBe(404);
+  const importado = await (await adminCtx.request.get(`/api/admin/temarios/${id}/export`)).json();
+  expect(importado.temas.map((t: { slug: string }) => t.slug)).toEqual(temas.map((t: { slug: string }) => t.slug));
+  expect(importado.preguntas).toHaveLength(6);
+  // Se oculta para no dejarlo en los selectores (los temarios no se borran).
+  await admin.goto(`/admin/temarios/${id}`);
+  await admin.getByRole("button", { name: "Ocultar el temario" }).click();
+  await expect(admin.getByText("Temario ocultado.")).toBeVisible();
+  expect((await activeTemario(adminCtx)).id).toBe(original.id);
 });

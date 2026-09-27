@@ -23,16 +23,39 @@ export const sessions = sqliteTable("sessions", {
   expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
 });
 
-export const units = sqliteTable("units", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  slug: text("slug").notNull().unique(),
-  orden: integer("orden").notNull(),
-  titulo: text("titulo").notNull(),
-  contenido: text("contenido").notNull(),
-  // Peso relativo del tema en el reparto de preguntas del examen final.
-  peso: real("peso").notNull().default(1),
-  activo: integer("activo", { mode: "boolean" }).notNull().default(true),
+/**
+ * Temarios (conjuntos de temas con sus preguntas). Solo uno está activo a la vez (clave `temario_activo` de
+ * `settings`); los demás se conservan con su progreso para poder volver a ellos.
+ */
+export const temarios = sqliteTable("temarios", {
+  id: text("id").primaryKey(),
+  nombre: text("nombre").notNull(),
+  descripcion: text("descripcion"),
+  // Autoría y licencia: se cita en el pie en lugar de branding.credito_formativo cuando está rellena.
+  credito: text("credito"),
+  // Oculto: no se ofrece para activar ni aparece por defecto en los selectores del panel.
+  oculto: integer("oculto", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
 });
+
+export const units = sqliteTable(
+  "units",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    // Temario al que pertenece. Sin REFERENCES para poder añadir la columna con ALTER TABLE (sin reconstruir la
+    // tabla, que tiene claves ajenas entrantes); la integridad la garantiza la aplicación.
+    temarioId: text("temario_id").notNull().default("toledo-2025"),
+    slug: text("slug").notNull(),
+    orden: integer("orden").notNull(),
+    titulo: text("titulo").notNull(),
+    contenido: text("contenido").notNull(),
+    // Peso relativo del tema en el reparto de preguntas del examen final.
+    peso: real("peso").notNull().default(1),
+    activo: integer("activo", { mode: "boolean" }).notNull().default(true),
+  },
+  (t) => [uniqueIndex("units_temario_slug_unique").on(t.temarioId, t.slug)],
+);
 
 export const questions = sqliteTable(
   "questions",
@@ -78,6 +101,8 @@ export const attempts = sqliteTable(
     startedAt: integer("started_at", { mode: "timestamp_ms" }).notNull(),
     submittedAt: integer("submitted_at", { mode: "timestamp_ms" }),
     gradingTries: integer("grading_tries").notNull().default(0),
+    // Temario con el que se hizo el examen final (null en los tests de tema: su tema ya lo indica).
+    temarioId: text("temario_id"),
   },
   (t) => [index("attempts_user").on(t.userId, t.kind, t.status)],
 );
@@ -135,6 +160,8 @@ export const carnets = sqliteTable("carnets", {
   expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
   revokedAt: integer("revoked_at", { mode: "timestamp_ms" }),
   attemptId: text("attempt_id").references(() => attempts.id),
+  // Temario con el que se acreditó la persona.
+  temarioId: text("temario_id"),
 });
 
 export const counters = sqliteTable("counters", {

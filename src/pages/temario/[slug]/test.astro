@@ -1,15 +1,15 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import Quiz from "../../../components/Quiz";
-import { eq } from "drizzle-orm";
-import { getDb, schema } from "../../../lib/db";
+import { getDb } from "../../../lib/db";
+import { findActiveUnitBySlug } from "../../../lib/temarios";
 import { getProgress } from "../../../lib/exam";
 import { isDemo } from "../../../lib/demo";
 
 const db = getDb();
 if (Astro.locals.hasCarnet) return Astro.redirect(`/temario/${Astro.params.slug}`);
-const unit = await db.query.units.findFirst({ where: eq(schema.units.slug, Astro.params.slug!) });
-if (!unit || !unit.activo) return new Response("No encontrado", { status: 404 });
+const unit = await findActiveUnitBySlug(db, Astro.params.slug!);
+if (!unit) return new Response("No encontrado", { status: 404 });
 const { units } = await getProgress(db, Astro.locals.user!.id);
 const idx = units.findIndex((u) => u.id === unit.id);
 if (!units[idx]?.unlocked) return Astro.redirect("/");

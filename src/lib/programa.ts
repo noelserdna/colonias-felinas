@@ -5,6 +5,7 @@ import type { DB } from "./db";
 import * as schema from "./db/schema";
 import { brandingFrom, ESCUDO_KEY, type Branding } from "./branding";
 import { parsePrograma, programaSchema, type Programa } from "./programa-config";
+import { temarioActivoFrom, temarioActivoQueries, type TemarioInfo } from "./temarios";
 
 const KEY = "programa";
 
@@ -20,12 +21,17 @@ export async function savePrograma(db: DB, input: unknown): Promise<Programa> {
   return value;
 }
 
-/** Identidad del ayuntamiento (branding y escudo) y programa local en un solo viaje a la base de datos. */
-export async function getIdentidad(db: DB): Promise<{ branding: Branding; programa: Programa }> {
-  const [rows, escudo] = await db.batch([
+/** Identidad del ayuntamiento (branding y escudo), programa local y temario activo en un solo viaje a la base de datos. */
+export async function getIdentidad(db: DB): Promise<{ branding: Branding; programa: Programa; temario: TemarioInfo }> {
+  const [rows, escudo, temarioSetting, temarios] = await db.batch([
     db.select().from(schema.settings).where(inArray(schema.settings.key, ["branding", KEY])),
     db.select({ version: schema.assets.version }).from(schema.assets).where(eq(schema.assets.key, ESCUDO_KEY)).limit(1),
+    ...temarioActivoQueries(db),
   ]);
   const value = (k: string) => rows.find((r) => r.key === k)?.value;
-  return { branding: brandingFrom(value("branding"), escudo[0]?.version ?? null), programa: parsePrograma(value(KEY)) };
+  return {
+    branding: brandingFrom(value("branding"), escudo[0]?.version ?? null),
+    programa: parsePrograma(value(KEY)),
+    temario: temarioActivoFrom(temarioSetting, temarios),
+  };
 }

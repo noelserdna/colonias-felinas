@@ -13,6 +13,7 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
   ctx.locals.user = user;
   ctx.locals.branding = identidad.branding;
   ctx.locals.programa = identidad.programa;
+  ctx.locals.temario = identidad.temario;
   ctx.locals.hasCarnet = ctx.locals.user ? Boolean(await getActiveCarnet(db, ctx.locals.user.id)) : false;
   const path = ctx.url.pathname;
   const isApi = path.startsWith("/api/");

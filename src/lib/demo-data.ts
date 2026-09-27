@@ -1,6 +1,6 @@
 // Datos de la instancia demo: copias de los perfiles para cada visitante, datos de base para el panel del
 // Ayuntamiento y reinicio nocturno. Solo se usa con DEMO=1.
-import { and, asc, eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { env } from "cloudflare:workers";
 import type { DB } from "./db";
 import * as schema from "./db/schema";
@@ -11,7 +11,8 @@ import { issueCarnet, caducidad } from "./carnet";
 import { getSettings } from "./settings";
 import { getAttemptForUser, startFinalExam, submitAttempt } from "./exam";
 import { notifyColony } from "./notices";
-import { exampleAnswers, PERSONA_DOMAIN, PERSONAS, personaEmail, randomName, type PersonaKey } from "./demo-personas";
+import { activeUnits } from "./temarios";
+import { exampleAnswers, PERSONA_DOMAIN, PERSONAS, personaEmail, randomName, type CursoDemo, type PersonaKey } from "./demo-personas";
 
 const uuid = () => crypto.randomUUID();
 const DAY = 86_400_000;
@@ -51,7 +52,7 @@ async function createUser(db: DB, u: { email: string; nombre: string; apellidos:
 
 /** Temas aprobados: intentos «passed» con fechas escalonadas (sin detalle de preguntas). */
 async function passUnits(db: DB, userId: string, count: number | "todos", startDaysAgo = 40) {
-  const units = await db.query.units.findMany({ where: eq(schema.units.activo, true), orderBy: asc(schema.units.orden) });
+  const units = await activeUnits(db);
   const n = count === "todos" ? units.length : Math.min(count, units.length);
   if (n === 0) return;
   const rows = units.slice(0, n).map((u, i) => {
@@ -72,6 +73,12 @@ async function passUnits(db: DB, userId: string, count: number | "todos", startD
     });
   });
   await db.batch(rows as [any, ...any[]]);
+}
+
+/** Número de temas del temario activo y de preguntas del examen final, para los textos de los perfiles. */
+export async function cursoDemo(db: DB): Promise<CursoDemo> {
+  const [units, s] = await Promise.all([activeUnits(db), getSettings(db)]);
+  return { temas: units.length, preguntas: s.final_mc_count + s.final_written_count };
 }
 
 /** Aprueba un tema concreto (atajo de la demo). */

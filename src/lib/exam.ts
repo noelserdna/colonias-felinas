@@ -11,6 +11,7 @@ import { getActiveCarnet, issueCarnet } from "./carnet";
 import { getJevApiKey, jevAvailable } from "./secrets";
 import { getBranding } from "./branding";
 import { shuffle, uuid } from "./util";
+import { activeUnits, getTemarioActivoId } from "./temarios";
 
 export class ExamError extends Error {
   constructor(message: string, public status = 400) {
@@ -39,8 +40,9 @@ export function readingMinutes(md: string): number {
   return Math.max(1, Math.round(words / 200));
 }
 
+/** Progreso en el temario activo. El de otros temarios se conserva (va por tema) y vuelve si se reactivan. */
 export async function getProgress(db: DB, userId: string) {
-  const units = await db.query.units.findMany({ where: eq(schema.units.activo, true), orderBy: asc(schema.units.orden) });
+  const units = await activeUnits(db);
   const best = await db
     .select({ unitId: schema.attempts.unitId, best: max(schema.attempts.scorePct) })
     .from(schema.attempts)
@@ -113,6 +115,7 @@ async function createAttempt(
   unitId: number | null,
   passPct: number,
   picked: Candidate[],
+  temarioId: string | null = null,
 ) {
   const full = await db.query.questions.findMany({ where: inArray(schema.questions.id, picked.map((p) => p.id)) });
   const byId = new Map(full.map((q) => [q.id, q]));
@@ -146,19 +149,22 @@ async function createAttempt(
       passPct,
       totalCount: items.length,
       startedAt: now,
+      temarioId,
     }),
     ...items.map((it) => db.insert(schema.attemptItems).values(it)),
   ]);
   return attemptId;
 }
 
-async function findInProgress(db: DB, userId: string, kind: "unit" | "final", unitId: number | null) {
+async function findInProgress(db: DB, userId: string, kind: "unit" | "final", unitId: number | null, temarioId?: string) {
   return db.query.attempts.findFirst({
     where: and(
       eq(schema.attempts.userId, userId),
       eq(schema.attempts.kind, kind),
       eq(schema.attempts.status, "in_progress"),
       unitId == null ? isNull(schema.attempts.unitId) : eq(schema.attempts.unitId, unitId),
+      // Un final empezado con otro temario queda anulado: no se retoma.
+      temarioId ? eq(schema.attempts.temarioId, temarioId) : undefined,
     ),
   });
 }
@@ -196,11 +202,12 @@ export async function finalEligibility(db: DB, user: { id: string; nombre: strin
 export async function startFinalExam(db: DB, user: Parameters<typeof finalEligibility>[1]) {
   const elig = await finalEligibility(db, user);
   if (!elig.ok) throw new ExamError(elig.reason, 403);
-  const existing = await findInProgress(db, user.id, "final", null);
+  const temarioId = await getTemarioActivoId(db);
+  const existing = await findInProgress(db, user.id, "final", null, temarioId);
   if (existing) return existing.id;
 
   const s = await getSettings(db);
-  const units = await db.query.units.findMany({ where: eq(schema.units.activo, true) });
+  const units = await activeUnits(db, temarioId);
   const pools = units.map((u) => ({ unitId: u.id, weight: u.peso }));
   const unitIds = units.map((u) => u.id);
   const mix = difficultyMix(s);
@@ -212,7 +219,7 @@ export async function startFinalExam(db: DB, user: Parameters<typeof finalEligib
     throw new ExamError("El banco de preguntas no tiene suficientes preguntas activas. Avisa al ayuntamiento.", 409);
   }
   // Las escritas se reparten a lo largo del examen en lugar de ir todas al final.
-  return createAttempt(db, user.id, "final", null, s.final_pass_pct, interleave(mc.picked, wr.picked));
+  return createAttempt(db, user.id, "final", null, s.final_pass_pct, interleave(mc.picked, wr.picked), temarioId);
 }
 
 export async function getAttemptForUser(db: DB, attemptId: string, userId: string) {
@@ -227,6 +234,8 @@ export type Answers = Record<string, number | number[] | string | null>;
 export async function submitAttempt(db: DB, attemptId: string, userId: string, answers: Answers) {
   const { attempt, items } = await loadAttempt(db, attemptId, userId);
   if (attempt.status !== "in_progress") throw new ExamError("Este intento ya se envió", 409);
+  if (attempt.kind === "final" && attempt.temarioId && attempt.temarioId !== (await getTemarioActivoId(db)))
+    throw new ExamError("El Ayuntamiento ha cambiado el temario del curso y este examen ya no es válido.", 409);
 
   // Marca el intento como enviado de forma atómica para impedir envíos dobles.
   const claimed = await db
@@ -326,7 +335,7 @@ async function finalize(db: DB, attemptId: string, s: Settings) {
     .where(and(eq(schema.attempts.id, attemptId), eq(schema.attempts.status, "grading")))
     .returning();
   if (done.length && attempt.kind === "final" && score.passed) {
-    await issueCarnet(db, attempt.userId, attemptId, s);
+    await issueCarnet(db, attempt.userId, attemptId, s, attempt.temarioId);
   }
   return done[0] ?? (await loadAttempt(db, attemptId)).attempt;
 }

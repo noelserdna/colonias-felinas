@@ -11,7 +11,10 @@ const user = await db.query.users.findFirst({ where: eq(schema.users.id, Astro.p
 if (!user) return new Response("No encontrado", { status: 404 });
 const { units } = await getProgress(db, user.id);
 const attempts = await db.query.attempts.findMany({ where: eq(schema.attempts.userId, user.id), orderBy: desc(schema.attempts.startedAt) });
-const unitTitle = new Map(units.map((u) => [u.id, `${u.orden}. ${u.titulo}`]));
+// Títulos de los temas de todos los temarios (los intentos pueden ser de un temario que ya no está activo).
+const activo = Astro.locals.temario.id;
+const allUnits = await db.query.units.findMany({ columns: { id: true, orden: true, titulo: true, temarioId: true } });
+const unitTitle = new Map(allUnits.map((u) => [u.id, `${u.orden}. ${u.titulo}${u.temarioId === activo ? "" : " (otro temario)"}`]));
 const statusLabel = { in_progress: "en curso", grading: "corrigiendo", passed: "aprobado", failed: "suspenso" } as const;
 ---
 <Layout title={user.email} wide>
@@ -19,7 +22,7 @@ const statusLabel = { in_progress: "en curso", grading: "corrigiendo", passed: "
   <h1>{[user.nombre, user.apellidos].filter(Boolean).join(" ") || user.email}</h1>
   <AdminNav />
   <p class="muted">{user.email} · alta {formatDate(user.createdAt)} · consentimiento {user.consentAt ? formatDate(user.consentAt) : "no"}</p>
-  <h2>Progreso</h2>
+  <h2>Progreso <small class="muted">({Astro.locals.temario.nombre})</small></h2>
   <div class="row">{units.map((u) => <span class:list={["badge", u.passed ? "ok" : u.unlocked ? "todo" : "lock"]}>{u.orden}{u.bestPct != null ? ` · ${u.bestPct}%` : ""}</span>)}</div>
   <h2>Intentos</h2>
   <div class="card table-scroll">

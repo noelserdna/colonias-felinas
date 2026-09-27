@@ -11,7 +11,7 @@ export const DEMO_COOKIE = "demo_acceso";
 const OPEN = [/^\/demo$/, /^\/privacidad/, /^\/accesibilidad$/, /^\/offline/, /^\/branding\//, /^\/manifest\.webmanifest$/, /^\/api\/demo\/reset$/];
 
 /** En la demo, los contenidos y los ajustes se pueden ver pero no cambiar (el reinicio no los restaura). */
-const LOCKED = [/^\/admin\/(temas|preguntas|ajustes|documentos|programa|textos)(\/|$)/, /^\/admin\/colonia\/?$/, /^\/api\/admin\/questions/];
+const LOCKED = [/^\/admin\/(temarios|temas|preguntas|ajustes|documentos|programa|textos)(\/|$)/, /^\/admin\/colonia\/?$/, /^\/api\/admin\/(questions|temarios)/];
 
 /**
  * Reglas de la instancia demo: acceso con el enlace con código (?codigo=…, se recuerda en una cookie),

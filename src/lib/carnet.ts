@@ -4,6 +4,7 @@ import { schema } from "./db";
 import type { Settings } from "./settings";
 import { uuid } from "./util";
 import { caducidad } from "./carnet-vigencia";
+import { getTemarioActivoId } from "./temarios";
 
 export { addMonths, caducidad, carnetStatus, esIndefinido, SIN_CADUCIDAD, textoCaducidad } from "./carnet-vigencia";
 
@@ -29,7 +30,8 @@ async function nextSeq(db: DB, key: string): Promise<number> {
   return rows[0].value;
 }
 
-export async function issueCarnet(db: DB, userId: string, attemptId: string | null, s: Settings) {
+/** Emite el carnet (si no tiene ya uno vigente). `temarioId`: temario con el que se acredita (por defecto, el activo). */
+export async function issueCarnet(db: DB, userId: string, attemptId: string | null, s: Settings, temarioId?: string | null) {
   const active = await getActiveCarnet(db, userId);
   if (active) return active;
   const user = await db.query.users.findFirst({ where: eq(schema.users.id, userId) });
@@ -46,6 +48,7 @@ export async function issueCarnet(db: DB, userId: string, attemptId: string | nu
     issuedAt: now,
     expiresAt: caducidad(now, s.carnet_validity_months),
     attemptId,
+    temarioId: temarioId ?? (await getTemarioActivoId(db)),
   };
   await db.insert(schema.carnets).values(row);
   return { ...row, revokedAt: null };

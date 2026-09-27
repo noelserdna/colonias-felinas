@@ -42,7 +42,7 @@ Interactive parts are React islands (`Quiz.tsx`, `SolicitudForm.tsx`, `BajaColon
 **Testability split.** Anything importing `cloudflare:workers` (env) or the DB cannot run in vitest. Logic is kept in
 pure modules that the unit tests import: `selection`, `grading`, `baja`, `notice-text`, `mail-provider`,
 `demo-personas`, `webpush`, `push-endpoint`, `questions-io`, `anexos-pdf`, `programa-config`, `pages-config`, `winansi`,
-`carnet-vigencia`
+`carnet-vigencia`, `temarios-config`
 (and the census logic in `colonies`). When adding logic, put the decision part
 in a pure module and keep the DB/env wiring in its sibling (`exam`, `notices`, `email`, `demo-data`, `push`…).
 
@@ -57,9 +57,17 @@ Admin → Carnets «Aplicar esta vigencia a los carnets vigentes» recalculates 
 `grading` until all are scored (cron retries), then a pass issues the carnet (`carnet.ts`). Without a JEV key,
 written questions are replaced by objective ones.
 
+**Temarios.** Several course syllabi (`temarios` table; `units.temario_id`, slugs unique only per temario) with one
+active (`settings.temario_activo`, default `toledo-2025`; tolerant read `elegirTemarioActivo` in `temarios-config.ts`,
+exposed as `Astro.locals.temario`). Student-facing code uses `activeUnits`/`findActiveUnitBySlug` (`temarios.ts`),
+never `units` unfiltered; admin code resolves topics inside an explicit temario (`resolveUnit(units, temario, tema)`,
+never by global `orden`). Progress is per unit, so each temario keeps its own. Admin → Temarios: activate (impact
+page), create, edit, hide (never delete: FKs without cascade), export/import JSON packages. Seed manifest
+`seed/temarios.json`; the seed never changes the active temario.
+
 **Configuration lives in the `settings` table** (key → JSON): course parameters (`settings.ts`, zod with defaults, incl.
 `carnet_prefix` and `carnet_aviso_dias`), `branding` (`branding-schema.ts`: municipio, provincia, contact,
-`credito_formativo`), `programa` (municipal programme, see below), `page:<slug>` (editable Markdown pages), `mail_from`, and
+`credito_formativo`, the fallback when the active temario has no `credito`), `temario_activo`, `programa` (municipal programme, see below), `page:<slug>` (editable Markdown pages), `mail_from`, and
 `secret:*` values encrypted with `APP_SECRET` (`secrets.ts` — JEV and Resend keys set from Admin → Ajustes take
 priority over env secrets). The escudo is in the `assets` table.
 
@@ -98,8 +106,9 @@ pages (Admin → Textos): pure `pages-config.ts` (`mi-colonia`, `pautas-colonia`
 ## Content and secrets not in git
 
 - The course content comes from a veterinary association's manual and is **gitignored**: `seed/units/*.md`,
-  `seed/questions/*.json`, `public/img/temario/`, `public/img/hero*.jpg`. Without it the seed creates placeholder
-  units (never overwriting panel edits) and the home page falls back to `public/img/portada.jpg`.
+  `seed/questions/*.json`, `public/img/temario/`, `public/img/hero*.jpg` (temario `toledo-2025`). Without it the seed
+  skips that temario and the app falls back to the free `propio` temario (`seed/temario-propio/`, images in
+  `public/img/curso/`); the home page falls back to `public/img/portada.jpg`.
 - Local secrets: `.dev.vars` (dev, `MAIL_MOCK=1` shows the magic link on the login page, `JEV_MOCK=1`),
   `.dev.vars.demo` (local demo mode), `.dev.vars.demo-remoto` (remote demo `DEMO_CODE` / `DEMO_RESET_TOKEN`).
   Production secrets are Wrangler secrets: `ADMIN_EMAILS`, `APP_SECRET`, `VAPID_PRIVATE_KEY`, `TYPESAFE_API_KEY`.

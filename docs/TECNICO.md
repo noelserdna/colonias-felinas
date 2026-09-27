@@ -67,7 +67,35 @@ panel. San Román (ordenanza del BOP de Toledo n.º 122, de 28/06/2024) es una *
   (ignorado por git), idempotente (`ON CONFLICT DO NOTHING`). La de San Román: `npm run db:local:sanroman:local`
   (`:remote` / `:demo` para producción y demo; orden de despliegue: migraciones → precarga → deploy). El suplemento
   local se toma de `programa-local.md` o, si no existe, de `seed/temario-propio/local/<slug>.md`.
-- **Declaración de accesibilidad**: cita `branding.credito_formativo` como origen de las imágenes del temario.
+- **Declaración de accesibilidad**: cita el `credito` del temario activo (o, si no tiene, `branding.credito_formativo`)
+  como origen de las imágenes del temario.
+
+## Temarios (varios, uno activo)
+
+- Tabla `temarios` (`id` slug, `nombre`, `descripcion`, `credito`, `oculto`); cada tema (`units.temario_id`) pertenece
+  a uno y los slugs solo son únicos **dentro** de cada temario (índice `units_temario_slug_unique`). `units.temario_id`
+  no tiene `REFERENCES` (se añadió con `ALTER TABLE` sin reconstruir `units`): la integridad la garantiza la app.
+- Temario activo: clave `temario_activo` de `settings`. Lectura tolerante con `elegirTemarioActivo`
+  (`src/lib/temarios-config.ts`, puro): el guardado si existe, está visible y tiene temas activos; si no, `toledo-2025`;
+  si no, el primero con temas. `getIdentidad` lo lee en el mismo viaje que el branding y el middleware lo deja en
+  `Astro.locals.temario` (`id`, `nombre`, `credito`). El pie usa `credito` del temario activo y, si está vacío,
+  `branding.credito_formativo`.
+- «Temas activos» = `units.activo` **y** del temario activo (`activeUnits`, `findActiveUnitBySlug` en
+  `src/lib/temarios.ts`): progreso, tests, examen final, temario, consulta, portada y demo. El progreso va por tema,
+  así que cada temario conserva el suyo y volver a activarlo lo recupera. `attempts.temario_id` (finales) y
+  `carnets.temario_id` guardan con qué temario se hizo el examen y se acreditó. Un final **sin enviar** de otro temario
+  queda anulado (no se retoma ni se puede enviar); los que ya se estaban corrigiendo terminan igual. Los carnets no se
+  tocan.
+- Panel *Administración → Temarios*: lista (temas, preguntas por tipo, cobertura), activar (página de impacto,
+  `impactoCambio`, con confirmación en la propia página), crear, editar nombre/descripción/crédito, ocultar (no se
+  borran: FK sin cascada), exportar paquete JSON (`/api/admin/temarios/<id>/export`) e importar un paquete como temario
+  nuevo (`validarPaquete`: zod, todo o nada, id existente → error; se escribe en un único `db.batch`, que en D1 es
+  una transacción). El paquete lleva `formato: "temario-colonias"`, `version: 1`, `temario`, `temas` (con su Markdown)
+  y `preguntas` (formato de `questions-io.ts`, `tema` = slug). Las imágenes **no** van dentro: los temas las enlazan
+  por su ruta en `public/`.
+- Temas y Preguntas del panel tienen un selector de temario (`?temario=…`, por defecto el activo). Las preguntas se
+  resuelven siempre dentro de un temario explícito (`resolveUnit(units, temario, tema)`), nunca por el orden global.
+  Un admin puede previsualizar un tema de otro temario con `/temario/<slug>?temario=<id>`.
 
 ## Desarrollo local
 
@@ -75,7 +103,7 @@ panel. San Román (ordenanza del BOP de Toledo n.º 122, de 28/06/2024) es una *
 npm install
 cp .dev.vars.example .dev.vars        # y rellena TYPESAFE_API_KEY, ADMIN_EMAILS…
 npm run db:migrate:local
-npm run db:seed:local                 # temas (con texto de ejemplo si falta seed/units/) y documentos
+npm run db:seed:local                 # temarios (ver «Semilla»), preguntas y documentos
 npm run dev                           # http://localhost:4321
 ```
 
@@ -177,10 +205,15 @@ Si se cambia `APP_SECRET`, la clave guardada deja de poder descifrarse y hay que
 
 ## Semilla (`npm run db:seed:*`)
 
-- `seed/units.json`: los temas (orden, slug, título y peso en el examen final).
-- `seed/units/NN-<slug>.md`: el texto de cada tema. **No está en el repositorio** (ver «Contenido formativo»); si falta,
-  el tema se crea con un texto de ejemplo y nunca se sobrescribe lo escrito después en el panel.
-- `seed/questions/*.json`: banco de preguntas (no incluido). Formato de ejemplo en `docs/preguntas-ejemplo.json`.
+- `seed/temarios.json`: manifiesto de temarios (`id`, `nombre`, `descripcion`, `credito`, `carpeta`). Cada carpeta
+  tiene `units.json` (orden, slug, título y peso), `units/NN-<slug>.md` y `questions/*.json`. Hoy: `toledo-2025`
+  (carpeta `seed`, **no está en el repositorio**, ver «Contenido formativo»; con `solo_con_contenido`, sin sus `.md`
+  no se crean sus temas) y `propio` (`seed/temario-propio`, 11 temas y 330 preguntas, CC BY-SA 4.0).
+- Crea los temarios que falten (`ON CONFLICT DO NOTHING`: no pisa lo editado en el panel), hace upsert de los temas
+  por `(temario_id, slug)` (un tema sin su `.md` se crea con un texto de ejemplo y nunca se sobrescribe) e inserta las
+  preguntas cuyo enunciado no exista ya en su tema. **Nunca cambia el temario activo**: un temario nuevo queda
+  disponible en *Temarios* para activarlo desde el panel. Para añadir uno: carpeta nueva + entrada en el manifiesto.
+- Formato de las preguntas: `docs/preguntas-ejemplo.json`.
 - `seed/documents.json`: documentos neutros de la sección «Documentos» (solo se añaden si no existe ya uno con la misma
   URL o con una que encaje con `si_no_existe`). Los de cada municipio van en su precarga (`seed/local/<slug>/`).
 - Es idempotente: se puede ejecutar varias veces.
@@ -220,4 +253,6 @@ temario o contar con los permisos correspondientes. Para desplegar una instancia
   Admin → Preguntas → Importar).
 - `public/img/temario/`: las imágenes que referencian los temas, y `public/img/hero.jpg` / `hero-640.jpg` (portada).
 
-Los temas y las preguntas también se pueden crear y editar desde el panel de administración.
+Los temas y las preguntas también se pueden crear y editar desde el panel de administración. Sin este contenido, la
+semilla solo crea el **temario propio** (`seed/temario-propio/`, libre, CC BY-SA 4.0), que la aplicación usa al no
+haber temas del de Toledo.

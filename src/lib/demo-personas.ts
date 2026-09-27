@@ -28,14 +28,14 @@ export const PERSONAS: Record<
   },
   mitad: {
     titulo: "A mitad del curso",
-    descripcion: "Ha aprobado 4 de los 8 temas.",
+    descripcion: "Ha aprobado 4 de los {temas} temas.",
     aprobados: 4,
     carnet: false,
     colonia: false,
     admin: false,
     inicio: "/",
     recorrido: [
-      { texto: "Ver el progreso: 4 de 8 temas", href: "/" },
+      { texto: "Ver el progreso: 4 de {temas} temas", href: "/" },
       { texto: "Temas aprobados, el siguiente y los bloqueados", href: "/temario" },
       { texto: "Aprobar un tema de un clic (atajo de la demo)", href: "/temario" },
     ],
@@ -49,7 +49,7 @@ export const PERSONAS: Record<
     admin: false,
     inicio: "/examen",
     recorrido: [
-      { texto: "Empezar el examen final (20 preguntas)", href: "/examen" },
+      { texto: "Empezar el examen final ({preguntas} preguntas)", href: "/examen" },
       { texto: "Rellenar con respuestas de ejemplo y enviarlo", href: "/examen" },
       { texto: "Ver la corrección de JEV y los fallos", href: "/examen" },
       { texto: "Recibir el carnet digital", href: "/carnet" },
@@ -111,6 +111,16 @@ export const PERSONAS: Record<
 };
 
 export const PERSONA_KEYS = Object.keys(PERSONAS) as PersonaKey[];
+
+/** Datos del curso que dependen del temario activo y de los ajustes (sustituyen a {temas} y {preguntas}). */
+export type CursoDemo = { temas: number; preguntas: number };
+
+/** Perfil con los textos completados con los datos del curso actual. */
+export function personaConTextos(key: PersonaKey, curso: CursoDemo) {
+  const p = PERSONAS[key];
+  const t = (s: string) => s.replace(/\{temas\}/g, String(curso.temas)).replace(/\{preguntas\}/g, String(curso.preguntas));
+  return { ...p, descripcion: t(p.descripcion), recorrido: p.recorrido.map((r) => ({ ...r, texto: t(r.texto) })) };
+}
 
 /** Correo de un perfil de demo: `<perfil>.<aleatorio>@personas.demo`. */
 export function personaEmail(key: PersonaKey, rand: string) {

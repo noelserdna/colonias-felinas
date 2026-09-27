@@ -5,7 +5,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const groups: { title: string | null; links: [string, string][] }[] = [
   { title: null, links: [["/admin", "Resumen"]] },
   { title: "Personas", links: [["/admin/colonias", "Colonias"], ["/admin/usuarios", "Usuarios"], ["/admin/carnets", "Carnets"]] },
-  { title: "Contenido", links: [["/admin/temas", "Temas"], ["/admin/preguntas", "Preguntas"], ["/admin/documentos", "Documentos"], ["/admin/textos", "Textos"]] },
+  { title: "Contenido", links: [["/admin/temarios", "Temarios"], ["/admin/temas", "Temas"], ["/admin/preguntas", "Preguntas"], ["/admin/documentos", "Documentos"], ["/admin/textos", "Textos"]] },
   { title: "Configuración", links: [["/admin/ajustes", "Ajustes"], ["/admin/programa", "Programa local"], ["/admin/accesibilidad", "Accesibilidad"]] },
 ];
 // Coincidencia por segmento completo: /admin/colonia no marca /admin/colonias.

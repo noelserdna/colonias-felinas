@@ -1,15 +1,16 @@
-import { and, asc, count, desc, eq, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, inArray, sql } from "drizzle-orm";
 import type { DB } from "./db";
 import { schema } from "./db";
 import { questionInput, type QuestionInput } from "./questions-io";
 import { finalComposition, getSettings } from "./settings";
 import { jevAvailable } from "./secrets";
+import { questionToInput, resolveUnit } from "./temarios-config";
+import { getTemarioActivoId } from "./temarios";
 
-type Unit = typeof schema.units.$inferSelect;
+export { resolveUnit };
 
-export function resolveUnit(units: Unit[], tema: string | number): Unit | undefined {
-  return typeof tema === "number" ? units.find((u) => u.orden === tema) : units.find((u) => u.slug === tema || String(u.orden) === tema);
-}
+/** Temas de un temario (las preguntas se resuelven siempre dentro del temario que se está editando). */
+const unitsOf = (db: DB, temarioId: string) => db.query.units.findMany({ where: eq(schema.units.temarioId, temarioId) });
 
 function toRow(q: QuestionInput, unitId: number) {
   return {
@@ -27,20 +28,18 @@ function toRow(q: QuestionInput, unitId: number) {
   };
 }
 
-export async function createQuestion(db: DB, input: unknown) {
+export async function createQuestion(db: DB, input: unknown, temarioId: string) {
   const q = questionInput.parse(input);
-  const units = await db.query.units.findMany();
-  const unit = resolveUnit(units, q.tema);
+  const unit = resolveUnit(await unitsOf(db, temarioId), temarioId, q.tema);
   if (!unit) throw new Error(`Tema desconocido: ${q.tema}`);
   const [row] = await db.insert(schema.questions).values(toRow(q, unit.id)).returning({ id: schema.questions.id });
   return row.id;
 }
 
 /** Edita una pregunta. Los intentos antiguos no cambian porque guardan una copia. */
-export async function updateQuestion(db: DB, id: number, input: unknown) {
+export async function updateQuestion(db: DB, id: number, input: unknown, temarioId: string) {
   const q = questionInput.parse(input);
-  const units = await db.query.units.findMany();
-  const unit = resolveUnit(units, q.tema);
+  const unit = resolveUnit(await unitsOf(db, temarioId), temarioId, q.tema);
   if (!unit) throw new Error(`Tema desconocido: ${q.tema}`);
   await db
     .update(schema.questions)
@@ -48,8 +47,8 @@ export async function updateQuestion(db: DB, id: number, input: unknown) {
     .where(eq(schema.questions.id, id));
 }
 
-export async function importQuestions(db: DB, raw: unknown[]) {
-  const units = await db.query.units.findMany();
+export async function importQuestions(db: DB, raw: unknown[], temarioId: string) {
+  const units = await unitsOf(db, temarioId);
   const errors: { fila: number; error: string }[] = [];
   const rows: ReturnType<typeof toRow>[] = [];
   raw.forEach((r, i) => {
@@ -58,7 +57,7 @@ export async function importQuestions(db: DB, raw: unknown[]) {
       errors.push({ fila: i + 1, error: parsed.error.issues.map((x) => x.message).join("; ") });
       return;
     }
-    const unit = resolveUnit(units, parsed.data.tema);
+    const unit = resolveUnit(units, temarioId, parsed.data.tema);
     if (!unit) {
       errors.push({ fila: i + 1, error: `Tema desconocido: ${parsed.data.tema}` });
       return;
@@ -75,34 +74,32 @@ export async function importQuestions(db: DB, raw: unknown[]) {
   return { imported: errors.length ? 0 : rows.length, errors };
 }
 
-export async function exportQuestions(db: DB): Promise<QuestionInput[]> {
-  const units = await db.query.units.findMany();
+/** Preguntas de un temario en el formato de intercambio (el tema, por su slug dentro del temario). */
+export async function exportQuestions(db: DB, temarioId: string): Promise<QuestionInput[]> {
+  const units = await unitsOf(db, temarioId);
   const bySlug = new Map(units.map((u) => [u.id, u.slug]));
-  const qs = await db.query.questions.findMany({ orderBy: [asc(schema.questions.unitId), asc(schema.questions.id)] });
-  return qs.map((q) => ({
-    tema: bySlug.get(q.unitId)!,
-    tipo: q.type,
-    dificultad: q.dificultad,
-    enunciado: q.enunciado,
-    opciones: q.options ?? undefined,
-    correcta: q.correctIndex ?? undefined,
-    correctas: q.correctIndexes ?? undefined,
-    explicacion: q.explicacion,
-    respuesta_referencia: q.referenceAnswer,
-    puntos_clave: q.keyPoints,
-    activo: q.activo,
-  }));
+  if (!units.length) return [];
+  const qs = await db.query.questions.findMany({
+    where: inArray(
+      schema.questions.unitId,
+      units.map((u) => u.id),
+    ),
+    orderBy: [asc(schema.questions.unitId), asc(schema.questions.id)],
+  });
+  return qs.map((q) => questionToInput(q, bySlug.get(q.unitId)!));
 }
 
-/** Preguntas activas por tema y tipo, con aviso si no alcanzan para los tests configurados. */
-export async function bankCoverage(db: DB) {
+/** Preguntas activas por tema y tipo de un temario (por defecto el activo), con aviso si no alcanzan para los tests configurados. */
+export async function bankCoverage(db: DB, temarioId?: string) {
   const s = await getSettings(db);
   const comp = finalComposition(s, await jevAvailable(db));
-  const units = await db.query.units.findMany({ orderBy: asc(schema.units.orden) });
+  const tid = temarioId ?? (await getTemarioActivoId(db));
+  const units = await db.query.units.findMany({ where: eq(schema.units.temarioId, tid), orderBy: asc(schema.units.orden) });
   const counts = await db
     .select({ unitId: schema.questions.unitId, type: schema.questions.type, dificultad: schema.questions.dificultad, n: count() })
     .from(schema.questions)
-    .where(eq(schema.questions.activo, true))
+    .innerJoin(schema.units, eq(schema.units.id, schema.questions.unitId))
+    .where(and(eq(schema.questions.activo, true), eq(schema.units.temarioId, tid)))
     .groupBy(schema.questions.unitId, schema.questions.type, schema.questions.dificultad);
   const get = (u: number, t: string, d?: string) =>
     counts.filter((c) => c.unitId === u && c.type === t && (!d || c.dificultad === d)).reduce((a, c) => a + c.n, 0);
@@ -126,7 +123,7 @@ export async function bankCoverage(db: DB) {
   const global: string[] = [];
   if (totalMc < comp.objective) global.push(`Faltan preguntas tipo test para el examen final (${totalMc}/${comp.objective}).`);
   if (totalWritten < comp.written) global.push(`Faltan preguntas escritas para el examen final (${totalWritten}/${comp.written}).`);
-  return { rows, global, settings: s, comp };
+  return { rows, global, settings: s, comp, temarioId: tid };
 }
 
 export async function stats(db: DB) {
@@ -142,10 +139,13 @@ export async function stats(db: DB) {
 
 export async function listUsers(db: DB) {
   const users = await db.query.users.findMany({ orderBy: desc(schema.users.createdAt) });
+  // Temas aprobados del temario activo (los de otros temarios no cuentan para el curso actual).
+  const temarioId = await getTemarioActivoId(db);
   const passed = await db
     .select({ userId: schema.attempts.userId, n: sql<number>`count(distinct ${schema.attempts.unitId})` })
     .from(schema.attempts)
-    .where(and(eq(schema.attempts.kind, "unit"), eq(schema.attempts.status, "passed")))
+    .innerJoin(schema.units, eq(schema.units.id, schema.attempts.unitId))
+    .where(and(eq(schema.attempts.kind, "unit"), eq(schema.attempts.status, "passed"), eq(schema.units.temarioId, temarioId), eq(schema.units.activo, true)))
     .groupBy(schema.attempts.userId);
   const carnets = await db.query.carnets.findMany({ orderBy: desc(schema.carnets.issuedAt) });
   return users.map((u) => ({

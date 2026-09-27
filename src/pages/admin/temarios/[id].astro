@@ -1,0 +1,104 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import AdminNav from "../../../components/AdminNav.astro";
+import { ZodError } from "zod";
+import { getDb } from "../../../lib/db";
+import { bankCoverage } from "../../../lib/admin";
+import { actualizarTemario, getTemario, ocultarTemario, TemarioError } from "../../../lib/temarios";
+
+const db = getDb();
+const id = Astro.params.id!;
+if (!(await getTemario(db, id))) return new Response("No encontrado", { status: 404 });
+let error: string | null = null;
+let msg: string | null = null;
+if (Astro.request.method === "POST") {
+  const f = await Astro.request.formData();
+  try {
+    if (f.get("accion") === "ocultar" || f.get("accion") === "mostrar") {
+      await ocultarTemario(db, id, f.get("accion") === "ocultar");
+      msg = f.get("accion") === "ocultar" ? "Temario ocultado." : "El temario vuelve a estar visible.";
+    } else {
+      await actualizarTemario(db, id, { nombre: f.get("nombre"), descripcion: f.get("descripcion"), credito: f.get("credito") });
+      msg = "Guardado.";
+    }
+  } catch (e) {
+    error = e instanceof ZodError ? e.issues.map((i) => i.message).join(". ") : e instanceof TemarioError ? e.message : "No se pudo guardar.";
+  }
+}
+if (Astro.url.searchParams.get("ok") === "creado") msg = "Temario creado. Añade ahora sus temas y sus preguntas.";
+const t = (await getTemario(db, id))!;
+const activo = Astro.locals.temario.id === id;
+const cov = await bankCoverage(db, id);
+const activos = cov.rows.filter((r) => r.unit.activo);
+---
+<Layout title={t.nombre} wide>
+  <p class="eyebrow">Administración · Temarios</p>
+  <h1>{t.nombre}</h1>
+  <AdminNav />
+  {msg && <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>{msg}</div>}
+  {error && <div class="alert bad" role="alert" tabindex="-1" data-focus-on-load>{error}</div>}
+  <p>
+    {activo ? <span class="badge ok">activo</span> : <span class="badge lock">no activo</span>}{" "}
+    {t.oculto && <span class="badge lock">oculto</span>}{" "}
+    <span class="muted">Identificador: <code>{t.id}</code> · {activos.length} {activos.length === 1 ? "tema activo" : "temas activos"}</span>
+  </p>
+  <div class="row" style="margin-bottom:1rem">
+    <a class="btn" href={`/admin/temas?temario=${t.id}`}>Temas</a>
+    <a class="btn" href={`/admin/preguntas?temario=${t.id}`}>Preguntas</a>
+    <a class="btn" href={`/api/admin/temarios/${t.id}/export`} data-astro-reload>Exportar paquete (JSON)</a>
+    {!activo && !t.oculto && activos.length > 0 && <a class="btn primary" href={`/admin/temarios/${t.id}/activar`}>Activar este temario</a>}
+  </div>
+
+  <form method="post" class="card">
+    <h2 class="mt-0">Datos del temario</h2>
+    <label for="nombre">Nombre</label>
+    <input id="nombre" name="nombre" type="text" required maxlength="160" value={t.nombre} />
+    <label for="credito">Autoría y licencia <span class="muted">(opcional)</span></label>
+    <input id="credito" name="credito" type="text" maxlength="200" value={t.credito ?? ""} aria-describedby="credito-help" />
+    <small class="muted" id="credito-help">
+      Se cita en el pie de todas las páginas («Contenido formativo: …») mientras este temario esté activo. Si se deja vacío, se usa la autoría
+      indicada en <a href="/admin/ajustes">Ajustes</a>.
+    </small>
+    <label for="descripcion">Descripción <span class="muted">(opcional, solo para el panel)</span></label>
+    <textarea id="descripcion" name="descripcion" maxlength="1000">{t.descripcion ?? ""}</textarea>
+    <button class="btn primary" style="margin-top:1rem" type="submit">Guardar</button>
+  </form>
+
+  <h2>Banco de preguntas</h2>
+  {cov.global.map((g) => <div class="alert bad">{g}</div>)}
+  {cov.rows.length === 0 ? (
+    <p class="muted">Este temario todavía no tiene temas. <a href={`/admin/temas/nuevo?temario=${t.id}`}>Añadir el primero</a></p>
+  ) : (
+    <div class="card table-scroll">
+      <table class="data responsive">
+        <thead><tr><th>Tema</th><th>Test</th><th>Escritas</th><th>Avisos</th></tr></thead>
+        <tbody>
+          {cov.rows.map((r) => (
+            <tr>
+              <td class="primary-cell"><span>{r.unit.orden}. <a href={`/admin/temas/${r.unit.id}`}>{r.unit.titulo}</a>{!r.unit.activo && <> <span class="badge lock">inactivo</span></>}</span></td>
+              <td data-label="Test">{r.mc}</td>
+              <td data-label="Escritas">{r.written}</td>
+              <td data-label="Avisos">{r.warnings.length ? <div class="stack">{r.warnings.map((w) => <span class="badge bad">{w}</span>)}</div> : <span class="badge ok">OK</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  <section class="card">
+    <h2 class="mt-0">{t.oculto ? "Temario oculto" : "Ocultar el temario"}</h2>
+    <p class="mt-0 muted">
+      Los temarios no se borran (conservan el progreso y los exámenes de quienes los hicieron). Ocultarlo lo quita de los selectores del panel y
+      no deja activarlo.
+    </p>
+    {activo ? (
+      <p class="mb-0 muted">El temario activo no se puede ocultar: activa antes otro.</p>
+    ) : (
+      <form method="post">
+        <input type="hidden" name="accion" value={t.oculto ? "mostrar" : "ocultar"} />
+        <button class="btn" type="submit">{t.oculto ? "Mostrar el temario" : "Ocultar el temario"}</button>
+      </form>
+    )}
+  </section>
+</Layout>

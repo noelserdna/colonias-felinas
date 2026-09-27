@@ -4,6 +4,12 @@ import AdminNav from "../../../components/AdminNav.astro";
 import { getDb } from "../../../lib/db";
 import { importQuestions } from "../../../lib/admin";
 import { csvToInputs } from "../../../lib/questions-io";
+import { getTemario, temarioElegido } from "../../../lib/temarios";
+
+const db = getDb();
+// Las preguntas se añaden a los temas del temario elegido (?temario=…, por defecto el activo).
+const temarioId = await temarioElegido(db, Astro.url.searchParams.get("temario"));
+const temario = await getTemario(db, temarioId);
 
 let result: Awaited<ReturnType<typeof importQuestions>> | null = null;
 let error: string | null = null;
@@ -17,7 +23,7 @@ if (Astro.request.method === "POST") {
     try {
       const raw = file.name.toLowerCase().endsWith(".json") ? JSON.parse(text) : csvToInputs(text);
       if (!Array.isArray(raw)) throw new Error("El JSON debe ser una lista de preguntas");
-      result = await importQuestions(getDb(), raw);
+      result = await importQuestions(db, raw, temarioId);
     } catch (e) {
       error = `No se pudo leer el fichero: ${(e as Error).message}`;
     }
@@ -28,6 +34,7 @@ if (Astro.request.method === "POST") {
   <p class="eyebrow">Administración</p>
   <h1>Importar preguntas</h1>
   <AdminNav />
+  <p class="muted">Temario: <a href={`/admin/preguntas?temario=${encodeURIComponent(temarioId)}`}>{temario?.nombre ?? temarioId}</a>{temarioId === Astro.locals.temario.id ? " (activo)" : " (no activo)"}. Para importar un temario completo (temas y preguntas), usa <a href="/admin/temarios">Temarios</a>.</p>
   {error && <div class="alert bad" role="alert" tabindex="-1" data-focus-on-load>{error}</div>}
   {result && result.errors.length === 0 && <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>Se han importado {result.imported} preguntas.</div>}
   {result && result.errors.length > 0 && (
@@ -46,7 +53,7 @@ if (Astro.request.method === "POST") {
     <p>Separador <code>;</code> o <code>,</code>, primera fila con cabeceras (el mismo formato que la exportación):</p>
     <pre style="overflow-x:auto">tema;tipo;dificultad;enunciado;opcion1;opcion2;opcion3;opcion4;opcion5;opcion6;correcta;explicacion;respuesta_referencia;puntos_clave;activo</pre>
     <ul>
-      <li><code>tema</code>: número de orden o identificador del tema.</li>
+      <li><code>tema</code>: número de orden o identificador del tema dentro de este temario.</li>
       <li><code>tipo</code>: <code>test</code> o <code>escrita</code>.</li>
       <li><code>dificultad</code>: <code>baja</code>, <code>media</code> o <code>alta</code> (si se deja vacía, <code>media</code>).</li>
       <li><code>correcta</code>: número de la opción correcta (1, 2, 3…), solo en tipo test.</li>

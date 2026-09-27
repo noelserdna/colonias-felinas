@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
-import { eq } from "drizzle-orm";
-import { getDb, schema } from "../../../lib/db";
+import { getDb } from "../../../lib/db";
 import { isDemo } from "../../../lib/demo";
 import { getProgress } from "../../../lib/exam";
 import { demoPassUnit } from "../../../lib/demo-data";
@@ -15,6 +14,5 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
   if (idx === -1 || !units[idx].unlocked) return redirect("/temario", 303);
   if (!units[idx].passed) await demoPassUnit(db, locals.user!.id, unitId);
   const next = units[idx + 1];
-  const unit = await db.query.units.findFirst({ where: eq(schema.units.id, unitId) });
-  return redirect(next ? `/temario/${next.slug}?aprobado=${unit?.orden ?? ""}` : "/examen", 303);
+  return redirect(next ? `/temario/${next.slug}?aprobado=${units[idx].orden}` : "/examen", 303);
 };

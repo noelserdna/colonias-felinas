@@ -35,8 +35,9 @@ Documentación: [README.md](README.md) (visión general y costes) · [docs/TECNI
      indique Resend.
 5. ¿Quiere **corrección con IA (JEV)** de las respuestas escritas? Es opcional; sin ella el examen es solo de tipo test.
    Necesita una cuenta en TypeSafe (https://console.typesafe.ai) con unos pocos euros de saldo.
-6. ¿Tiene el **temario** (texto de los temas) y las **preguntas**? Si no, la app se instala con temas de ejemplo que se
-   redactan desde el panel.
+6. ¿Tiene su propio **temario** (texto de los temas) y **preguntas**? Si no, la app usa el **temario propio** incluido
+   en el repositorio (11 temas universales con 330 preguntas, CC BY-SA 4.0). Se pueden tener varios temarios y elegir
+   el activo en *Administración → Temarios*.
 
 ## 2. Preparar el ordenador
 
@@ -100,12 +101,15 @@ Los de San Román (ordenanzas, sede, portal de transparencia) están en su preca
 
 ```bash
 npm run db:migrate:remote
-npm run db:seed:remote     # sin seed/units/*.md, los 8 temas se crean con un texto de ejemplo
+npm run db:seed:remote     # temarios de seed/temarios.json; sin seed/units/*.md solo se crea el temario propio
 ```
 
-Si la persona tiene el temario en Markdown, colócalo en `seed/units/NN-<slug>.md` (slugs en `seed/units.json`) y sus
-preguntas en `seed/questions/*.json` (formato en `docs/preguntas-ejemplo.json`) **antes** de la semilla. Esos archivos
-están ignorados por git: el contenido puede tener derechos de autor.
+La semilla nunca cambia el temario activo; sin el del manual de Toledo (`seed/units/*.md`, fuera de git) la app usa
+sola el temario propio. Si la persona tiene **su** temario en Markdown, añádelo como un temario más: una carpeta
+(`units.json`, `units/NN-<slug>.md`, `questions/*.json`, formato en `docs/preguntas-ejemplo.json`) y una entrada en
+`seed/temarios.json` **antes** de la semilla; después se activa en *Administración → Temarios*. Si el contenido tiene
+derechos de autor, no lo subas a git (añade la carpeta a `.gitignore`). También se puede importar un paquete JSON
+exportado desde otra instalación (*Temarios → Importar un temario*).
 
 ## 7. Publicar y comprobar
 
@@ -121,7 +125,9 @@ npm run deploy             # compila y publica; muestra la dirección https://�
 
 ## 8. Adaptar al municipio (desde el panel, sin código)
 
-- **Temas**: redactar el temario (Markdown). **Preguntas**: importar un JSON o CSV. Si la persona lo pide, genera
+- **Temarios**: elegir el temario activo (con página de impacto y confirmación), crear uno vacío, importar/exportar
+  paquetes. **Temas**: redactar el temario (Markdown). **Preguntas**: importar un JSON o CSV (ambos con selector de
+  temario; por defecto el activo). Si la persona lo pide, genera
   preguntas a partir de su temario en el formato de `docs/preguntas-ejemplo.json`: tipo test (`mc`), varias correctas
   (`multi`) y escritas (`written`, con `respuesta_referencia` y `puntos_clave`). Recuérdale que **las revise una
   persona experta** antes de abrir la plataforma.

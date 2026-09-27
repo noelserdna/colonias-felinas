@@ -5,10 +5,18 @@ import { asc, eq } from "drizzle-orm";
 import { ZodError } from "zod";
 import { getDb, schema } from "../../../lib/db";
 import { createQuestion, updateQuestion } from "../../../lib/admin";
+import { getTemario, temarioElegido } from "../../../lib/temarios";
 
 const db = getDb();
 const isNew = Astro.params.id === "nueva";
-const units = await db.query.units.findMany({ orderBy: asc(schema.units.orden) });
+const q = isNew ? null : await db.query.questions.findFirst({ where: eq(schema.questions.id, Number(Astro.params.id)) });
+if (!isNew && !q) return new Response("No encontrada", { status: 404 });
+// La pregunta se edita dentro de su temario (el de su tema; si es nueva, ?temario=… o el activo).
+const qUnit = q ? await db.query.units.findFirst({ where: eq(schema.units.id, q.unitId) }) : null;
+const temarioId = qUnit?.temarioId ?? (await temarioElegido(db, Astro.url.searchParams.get("temario")));
+const temario = await getTemario(db, temarioId);
+const units = await db.query.units.findMany({ where: eq(schema.units.temarioId, temarioId), orderBy: asc(schema.units.orden) });
+const volver = `/admin/preguntas?temario=${encodeURIComponent(temarioId)}`;
 let error: string | null = null;
 let form: Record<string, string> = {};
 
@@ -18,7 +26,8 @@ if (Astro.request.method === "POST") {
   form = Object.fromEntries([...(await Astro.request.formData()).entries()].map(([k, v]) => [k, String(v)]));
   const tipo = form.tipo as "mc" | "multi" | "written";
   const input = {
-    tema: Number(form.tema),
+    // `tema` llega como id; se traduce al slug del tema dentro de este temario (nunca al orden: se repite entre temarios).
+    tema: units.find((u) => u.id === Number(form.tema))?.slug ?? "",
     tipo,
     dificultad: (["baja", "media", "alta"].includes(form.dificultad) ? form.dificultad : "media") as "baja" | "media" | "alta",
     enunciado: form.enunciado,
@@ -30,22 +39,18 @@ if (Astro.request.method === "POST") {
     puntos_clave: tipo === "written" ? lines(form.puntos_clave ?? "") : null,
     activo: form.activo === "on",
   };
-  // `tema` llega como id; se traduce al orden que espera el formato de intercambio.
-  input.tema = units.find((u) => u.id === Number(form.tema))?.orden ?? -1;
   try {
     if (isNew) {
-      const id = await createQuestion(db, input);
+      const id = await createQuestion(db, input, temarioId);
       return Astro.redirect(`/admin/preguntas/${id}?ok=1`, 303);
     }
-    await updateQuestion(db, Number(Astro.params.id), input);
+    await updateQuestion(db, Number(Astro.params.id), input, temarioId);
     return Astro.redirect(`/admin/preguntas/${Astro.params.id}?ok=1`, 303);
   } catch (e) {
     error = e instanceof ZodError ? e.issues.map((i) => i.message).join(". ") : String((e as Error).message);
   }
 }
 
-const q = isNew ? null : await db.query.questions.findFirst({ where: eq(schema.questions.id, Number(Astro.params.id)) });
-if (!isNew && !q) return new Response("No encontrada", { status: 404 });
 const v = {
   tema: form.tema ?? String(q?.unitId ?? Astro.url.searchParams.get("tema") ?? units[0]?.id ?? ""),
   tipo: form.tipo ?? q?.type ?? "mc",
@@ -64,6 +69,7 @@ const v = {
   <p class="eyebrow">Administración</p>
   <h1>{isNew ? "Nueva pregunta" : `Editar pregunta #${q!.id}`} {q && <small class="muted">v{q.version}</small>}</h1>
   <AdminNav />
+  <p class="muted">Temario: <a href={volver}>{temario?.nombre ?? temarioId}</a>{temarioId === Astro.locals.temario.id ? " (activo)" : " (no activo)"}</p>
   {Astro.url.searchParams.has("ok") && !error && <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>Guardada.</div>}
   {error && <div class="alert bad" role="alert" id="qform-error" tabindex="-1" data-focus-on-load>{error}</div>}
   <form method="post" class="card" id="qform">
@@ -105,7 +111,7 @@ const v = {
     <label class="check"><input type="checkbox" name="activo" checked={v.activo} /> <span>Activa (puede salir en tests y exámenes)</span></label>
     <div class="row" style="margin-top:1rem">
       <button class="btn primary" type="submit">Guardar</button>
-      <a class="btn ghost" href="/admin/preguntas">Volver</a>
+      <a class="btn ghost" href={volver}>Volver</a>
     </div>
     <p class="muted">Editar una pregunta no altera los intentos ya realizados: cada intento guarda una copia de la pregunta tal como se mostró.</p>
   </form>

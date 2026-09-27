@@ -1,16 +1,23 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import AdminNav from "../../../components/AdminNav.astro";
-import { asc } from "drizzle-orm";
+import TemarioSelector from "../../../components/TemarioSelector.astro";
+import { asc, eq } from "drizzle-orm";
 import { getDb, schema } from "../../../lib/db";
+import { temarioElegido } from "../../../lib/temarios";
 
-const units = await getDb().query.units.findMany({ orderBy: asc(schema.units.orden) });
+const db = getDb();
+const temario = await temarioElegido(db, Astro.url.searchParams.get("temario"));
+const units = await db.query.units.findMany({ where: eq(schema.units.temarioId, temario), orderBy: asc(schema.units.orden) });
+const q = temario === Astro.locals.temario.id ? "" : `?temario=${encodeURIComponent(temario)}`;
 ---
 <Layout title="Temas" wide>
   <p class="eyebrow">Administración</p>
   <h1>Temas</h1>
   <AdminNav />
-  <div class="card table-scroll">
+  <TemarioSelector actual={temario} action="/admin/temas" />
+  {units.length === 0 && <p class="muted">Este temario todavía no tiene temas.</p>}
+  <div class="card table-scroll" hidden={units.length === 0}>
     <table class="data responsive">
       <thead><tr><th>Tema</th><th>Peso en examen final</th><th>Estado</th><th><span class="sr-only">Acciones</span></th></tr></thead>
       <tbody>
@@ -24,5 +31,5 @@ const units = await getDb().query.units.findMany({ orderBy: asc(schema.units.ord
       </tbody>
     </table>
   </div>
-  <a class="btn primary" href="/admin/temas/nuevo">Nuevo tema</a>
+  <a class="btn primary" href={`/admin/temas/nuevo${q}`}>Nuevo tema</a>
 </Layout>

@@ -9,8 +9,7 @@ import { getDb } from "../lib/db";
 import { getProgress } from "../lib/exam";
 import { getActiveCarnet } from "../lib/carnet";
 import { profileComplete } from "../lib/auth";
-import { count, eq } from "drizzle-orm";
-import { schema } from "../lib/db";
+import { countActiveUnits } from "../lib/temarios";
 import { getPage } from "../lib/pages";
 
 const user = Astro.locals.user;
@@ -25,7 +24,7 @@ if (user) {
   suplemento = Boolean((await getPage(db, "programa-local")).markdown.trim());
   temas = data.units.length;
 } else {
-  temas = (await db.select({ n: count() }).from(schema.units).where(eq(schema.units.activo, true)))[0]?.n ?? 0;
+  temas = await countActiveUnits(db, Astro.locals.temario.id);
 }
 const passedCount = data?.units.filter((u) => u.passed).length ?? 0;
 const total = data?.units.length ?? 0;

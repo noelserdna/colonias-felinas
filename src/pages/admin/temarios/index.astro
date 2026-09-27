@@ -1,0 +1,140 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import AdminNav from "../../../components/AdminNav.astro";
+import { ZodError } from "zod";
+import { getDb } from "../../../lib/db";
+import { bankCoverage } from "../../../lib/admin";
+import { crearTemario, importarPaquete, listTemarios, TemarioError } from "../../../lib/temarios";
+
+const db = getDb();
+let error: string | null = null;
+let errores: string[] = [];
+let msg: string | null = null;
+let form: Record<string, string> = {};
+
+if (Astro.request.method === "POST") {
+  const f = await Astro.request.formData();
+  if (f.get("accion") === "crear") {
+    form = { id: String(f.get("id") ?? ""), nombre: String(f.get("nombre") ?? ""), credito: String(f.get("credito") ?? ""), descripcion: String(f.get("descripcion") ?? "") };
+    try {
+      const id = await crearTemario(db, form);
+      return Astro.redirect(`/admin/temarios/${id}?ok=creado`, 303);
+    } catch (e) {
+      error = e instanceof ZodError ? e.issues.map((i) => i.message).join(". ") : e instanceof TemarioError ? e.message : "No se pudo crear el temario.";
+    }
+  } else if (f.get("accion") === "importar") {
+    const file = f.get("file");
+    if (!(file instanceof File) || file.size === 0) error = "Selecciona un fichero.";
+    else if (file.size > 8_000_000) error = "El fichero es demasiado grande (máx. 8 MB).";
+    else {
+      let raw: unknown = null;
+      try {
+        raw = JSON.parse(await file.text());
+      } catch {
+        error = "El fichero no es un JSON válido.";
+      }
+      if (!error) {
+        const r = await importarPaquete(db, raw);
+        if (r.ok) msg = `Temario «${r.id}» importado: ${r.temas} temas y ${r.preguntas} preguntas. No está activo: revísalo y actívalo cuando quieras.`;
+        else {
+          error = "No se ha importado nada porque el paquete tiene errores:";
+          errores = r.errores;
+        }
+      }
+    }
+  }
+}
+const q = Astro.url.searchParams;
+if (q.get("activado")) msg = `Temario activado. El curso usa ahora «${Astro.locals.temario.nombre}».`;
+const temarios = await listTemarios(db);
+const cobertura = new Map(
+  await Promise.all(
+    temarios.map(async (t) => {
+      const c = await bankCoverage(db, t.id);
+      return [t.id, c.global.length + c.rows.filter((r) => r.unit.activo && r.warnings.length).length] as const;
+    }),
+  ),
+);
+---
+<Layout title="Temarios" wide>
+  <p class="eyebrow">Administración</p>
+  <h1>Temarios</h1>
+  <AdminNav />
+  {msg && <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>{msg}</div>}
+  {error && (
+    <div class="alert bad" role="alert" tabindex="-1" data-focus-on-load>
+      <div>
+        {error}
+        {errores.length > 0 && <ul>{errores.map((e) => <li>{e}</li>)}</ul>}
+      </div>
+    </div>
+  )}
+  <p class="muted">
+    Un temario es un conjunto de temas con sus preguntas. El curso usa <strong>uno</strong> a la vez, el activo; los demás se guardan con el
+    progreso de cada persona, que se recupera si se vuelven a activar. Los carnets ya emitidos no cambian al cambiar de temario.
+  </p>
+  <div class="card table-scroll">
+    <table class="data responsive">
+      <thead><tr><th>Temario</th><th>Temas</th><th>Preguntas (test / varias / escritas)</th><th>Cobertura</th><th><span class="sr-only">Acciones</span></th></tr></thead>
+      <tbody>
+        {temarios.map((t) => (
+          <tr>
+            <td class="primary-cell">
+              <span>
+                {t.nombre}{" "}
+                {t.activo && <span class="badge ok">activo</span>}
+                {t.oculto && <span class="badge lock">oculto</span>}
+                <small class="muted" style="display:block">{t.id}{t.credito ? ` · ${t.credito}` : ""}</small>
+              </span>
+            </td>
+            <td data-label="Temas">{t.temasActivos}{t.temas !== t.temasActivos ? ` (+${t.temas - t.temasActivos} inactivos)` : ""}</td>
+            <td data-label="Preguntas">{t.preguntas.mc} / {t.preguntas.multi} / {t.preguntas.written}</td>
+            <td data-label="Cobertura">
+              {t.temasActivos === 0 ? <span class="badge lock">sin temas</span> : cobertura.get(t.id) ? <span class="badge bad">{cobertura.get(t.id)} {cobertura.get(t.id) === 1 ? "aviso" : "avisos"}</span> : <span class="badge ok">OK</span>}
+            </td>
+            <td class="actions">
+              <a class="btn small" href={`/admin/temarios/${t.id}`} aria-label={`Editar el temario ${t.nombre}`}>Editar</a>
+              <a class="btn small ghost" href={`/admin/temas?temario=${t.id}`} aria-label={`Temas de ${t.nombre}`}>Temas</a>
+              <a class="btn small ghost" href={`/admin/preguntas?temario=${t.id}`} aria-label={`Preguntas de ${t.nombre}`}>Preguntas</a>
+              {!t.activo && !t.oculto && t.temasActivos > 0 && (
+                <a class="btn small primary" href={`/admin/temarios/${t.id}/activar`} aria-label={`Activar ${t.nombre}`}>Activar</a>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row" style="align-items:flex-start">
+    <form method="post" class="card grow" style="flex:1;min-width:min(300px,100%)">
+      <h2 class="mt-0">Nuevo temario</h2>
+      <p class="muted mt-0">Se crea vacío: después añade sus temas en <em>Temas</em> y sus preguntas en <em>Preguntas</em>.</p>
+      <input type="hidden" name="accion" value="crear" />
+      <label for="nt-nombre">Nombre</label>
+      <input id="nt-nombre" name="nombre" type="text" required maxlength="160" value={form.nombre ?? ""} />
+      <label for="nt-id">Identificador</label>
+      <input id="nt-id" name="id" type="text" required maxlength="40" pattern="[a-z0-9]([a-z0-9\-]*[a-z0-9])?" value={form.id ?? ""} aria-describedby="nt-id-help" autocomplete="off" />
+      <small class="muted" id="nt-id-help">Minúsculas, números y guiones, p. ej. <code>temario-2027</code>. No se puede cambiar después.</small>
+      <label for="nt-credito">Autoría y licencia <span class="muted">(opcional)</span></label>
+      <input id="nt-credito" name="credito" type="text" maxlength="200" value={form.credito ?? ""} aria-describedby="nt-credito-help" />
+      <small class="muted" id="nt-credito-help">Se cita en el pie de todas las páginas mientras este temario esté activo.</small>
+      <label for="nt-desc">Descripción <span class="muted">(opcional)</span></label>
+      <textarea id="nt-desc" name="descripcion" maxlength="1000">{form.descripcion ?? ""}</textarea>
+      <button class="btn primary" style="margin-top:1rem" type="submit">Crear temario</button>
+    </form>
+
+    <form method="post" enctype="multipart/form-data" class="card" style="flex:1;min-width:min(300px,100%)" data-astro-reload>
+      <h2 class="mt-0">Importar un temario</h2>
+      <p class="muted mt-0">
+        Un paquete JSON exportado desde esta página (en <em>Editar</em> → <em>Exportar</em>), con los temas y sus preguntas. Se importa como un
+        temario <strong>nuevo y no activo</strong>; si ya existe uno con su identificador, cámbialo en el fichero (<code>"temario": {"{"} "id": … {"}"}</code>).
+        Las imágenes no van en el paquete: los temas las enlazan por su ruta.
+      </p>
+      <input type="hidden" name="accion" value="importar" />
+      <label for="it-file">Paquete del temario (JSON)</label>
+      <input id="it-file" name="file" type="file" accept=".json,application/json" required />
+      <button class="btn" style="margin-top:1rem" type="submit">Importar temario</button>
+    </form>
+  </div>
+</Layout>

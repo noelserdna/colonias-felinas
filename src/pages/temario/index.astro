@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
-import { asc, eq } from "drizzle-orm";
-import { getDb, schema } from "../../lib/db";
+import { getDb } from "../../lib/db";
+import { activeUnits } from "../../lib/temarios";
 import { readingMinutes } from "../../lib/exam";
 import { listDocuments } from "../../lib/documents";
 import DocumentList from "../../components/DocumentList.astro";
@@ -12,7 +12,7 @@ import { getPage } from "../../lib/pages";
 if (!Astro.locals.hasCarnet) return Astro.redirect("/");
 const db = getDb();
 const docs = await listDocuments(db);
-const units = await db.query.units.findMany({ where: eq(schema.units.activo, true), orderBy: asc(schema.units.orden) });
+const units = await activeUnits(db, Astro.locals.temario.id);
 const suplemento = (await getPage(db, "programa-local")).markdown;
 ---
 <Layout title="Consulta">

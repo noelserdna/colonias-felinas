@@ -39,6 +39,8 @@ declare namespace App {
     branding: import("./lib/branding").Branding;
     /** Programa municipal: normativa, nombres de los anexos, censo… (Administración → Programa local). */
     programa: import("./lib/programa-config").Programa;
+    /** Temario activo (Administración → Temarios): id, nombre y crédito de autoría. */
+    temario: import("./lib/temarios").TemarioInfo;
     /** El usuario tiene un carnet vigente: modo «consulta» (sin tests ni examen). */
     hasCarnet: boolean;
     /** En la demo: si el visitante ha entrado con el enlace con código. */

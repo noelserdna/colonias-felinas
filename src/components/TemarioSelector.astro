@@ -1,0 +1,30 @@
+---
+// Selector de temario en la cabecera de Temas y Preguntas del panel (por defecto, el activo).
+import { temariosSelector } from "../lib/temarios";
+import { getDb } from "../lib/db";
+
+interface Props {
+  /** Temario que se está viendo. */
+  actual: string;
+  /** Página a la que envía el formulario (GET). */
+  action: string;
+}
+const { actual, action } = Astro.props;
+const activo = Astro.locals.temario.id;
+const temarios = await temariosSelector(getDb(), actual);
+---
+{temarios.length > 1 ? (
+  <form method="get" action={action} class="card row temario-selector" style="align-items:flex-end">
+    <div style="flex:1;min-width:min(240px,100%)">
+      <label for="temario-sel">Temario</label>
+      <select id="temario-sel" name="temario">
+        {temarios.map((t) => <option value={t.id} selected={t.id === actual}>{t.nombre}{t.id === activo ? " (activo)" : ""}</option>)}
+      </select>
+    </div>
+    <button class="btn" type="submit">Ver</button>
+    <a class="btn ghost" href="/admin/temarios">Gestionar temarios</a>
+  </form>
+) : null}
+{actual !== activo && (
+  <div class="alert info" role="status">Estás viendo un temario que <strong>no está activo</strong>: los cambios no afectan al curso actual hasta que se active en <a href="/admin/temarios">Temarios</a>.</div>
+)}

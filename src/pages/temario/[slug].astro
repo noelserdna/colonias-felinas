@@ -2,19 +2,28 @@
 import Layout from "../../layouts/Layout.astro";
 import { isDemo } from "../../lib/demo";
 import Icon from "../../components/Icon.astro";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { getDb, schema } from "../../lib/db";
-import { getProgress } from "../../lib/exam";
+import { getProgress, readingMinutes } from "../../lib/exam";
+import { activeUnits, findActiveUnitBySlug } from "../../lib/temarios";
 import { renderMarkdown } from "../../lib/markdown";
 import { getPage } from "../../lib/pages";
 
 const db = getDb();
-const unit = await db.query.units.findFirst({ where: eq(schema.units.slug, Astro.params.slug!) });
-if (!unit || !unit.activo) return new Response("No encontrado", { status: 404 });
-const { units } = await getProgress(db, Astro.locals.user!.id);
+// Los administradores pueden revisar un tema de otro temario (?temario=…) sin activarlo: vista previa sin test.
+const pedido = Astro.url.searchParams.get("temario");
+const preview = Astro.locals.user!.role === "admin" && Boolean(pedido) && pedido !== Astro.locals.temario.id;
+const unit = preview
+  ? await db.query.units.findFirst({ where: and(eq(schema.units.temarioId, pedido!), eq(schema.units.slug, Astro.params.slug!), eq(schema.units.activo, true)) })
+  : await findActiveUnitBySlug(db, Astro.params.slug!);
+if (!unit) return new Response("No encontrado", { status: 404 });
+const { units } = preview
+  ? { units: (await activeUnits(db, pedido!)).map((u) => ({ id: u.id, slug: u.slug, orden: u.orden, titulo: u.titulo, passed: false, bestPct: null, unlocked: true, minutos: readingMinutes(u.contenido) })) }
+  : await getProgress(db, Astro.locals.user!.id);
 const p = units.find((u) => u.id === unit.id)!;
+const q = preview ? `?temario=${encodeURIComponent(pedido!)}` : "";
 // Los administradores pueden revisar cualquier tema aunque no lo tengan desbloqueado.
-const consulta = Astro.locals.hasCarnet;
+const consulta = Astro.locals.hasCarnet || preview;
 if (!p.unlocked && !consulta && Astro.locals.user!.role !== "admin") return Astro.redirect("/");
 const idx = units.findIndex((u) => u.id === unit.id);
 const prev = units[idx - 1];
@@ -24,9 +33,14 @@ const html = renderMarkdown(unit.contenido);
 const suplemento = unit.contenido.includes("Pregunta en tu ayuntamiento") && Boolean((await getPage(db, "programa-local")).markdown.trim());
 ---
 <Layout title={unit.titulo} readingProgress>
-  <a class="btn ghost small" href={consulta ? "/temario" : "/"} style="margin-left:-.6rem"><Icon name="back" size={18} /> {consulta ? "Consulta" : "Temario"}</a>
+  {preview ? (
+    <a class="btn ghost small" href={`/admin/temas?temario=${encodeURIComponent(pedido!)}`} style="margin-left:-.6rem"><Icon name="back" size={18} /> Temas del panel</a>
+  ) : (
+    <a class="btn ghost small" href={consulta ? "/temario" : "/"} style="margin-left:-.6rem"><Icon name="back" size={18} /> {consulta ? "Consulta" : "Temario"}</a>
+  )}
   <p class="eyebrow" style="margin-top:.6rem">Tema {unit.orden} de {units.length}</p>
   <h1>{unit.titulo}</h1>
+  {preview && <div class="alert info" role="status">Vista previa de un temario que no está activo: el alumnado no lo ve.</div>}
   {isDemo() && Astro.url.searchParams.get("aprobado") && (
     <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>Tema {Astro.url.searchParams.get("aprobado")} aprobado con el atajo de la demo. Este es el siguiente.</div>
   )}
@@ -47,8 +61,8 @@ const suplemento = unit.contenido.includes("Pregunta en tu ayuntamiento") && Boo
   )}
   {consulta ? (
     <div class="row" style="justify-content:space-between">
-      {prev ? <a class="btn ghost" href={`/temario/${prev.slug}`}><Icon name="back" size={18} /> {prev.titulo}</a> : <span></span>}
-      {next && <a class="btn" href={`/temario/${next.slug}`}>{next.titulo} <Icon name="arrow" size={18} /></a>}
+      {prev ? <a class="btn ghost" href={`/temario/${prev.slug}${q}`}><Icon name="back" size={18} /> {prev.titulo}</a> : <span></span>}
+      {next && <a class="btn" href={`/temario/${next.slug}${q}`}>{next.titulo} <Icon name="arrow" size={18} /></a>}
     </div>
   ) : (
   <div class="card end-cta">

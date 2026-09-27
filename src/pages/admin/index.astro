@@ -33,6 +33,7 @@ const a11yPendientes = (await db.select({ n: count() }).from(schema.accessibilit
     </div>
   )}
   <h2>Banco de preguntas</h2>
+  <p class="muted">Temario activo: <strong>{Astro.locals.temario.nombre}</strong>. <a href="/admin/temarios">Cambiar de temario</a></p>
   {cov.global.map((g) => <div class="alert bad">{g}</div>)}
   <div class="card table-scroll">
     <table class="data responsive">

@@ -4,9 +4,15 @@ import AdminNav from "../../../components/AdminNav.astro";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { getDb, schema } from "../../../lib/db";
+import { getTemario, temarioElegido } from "../../../lib/temarios";
 
 const db = getDb();
 const isNew = Astro.params.id === "nuevo";
+const existing = isNew ? null : await db.query.units.findFirst({ where: eq(schema.units.id, Number(Astro.params.id)) });
+if (!isNew && !existing) return new Response("No encontrado", { status: 404 });
+// Un tema nuevo se crea en el temario elegido (?temario=…, por defecto el activo); uno existente no cambia de temario.
+const temarioId = existing?.temarioId ?? (await temarioElegido(db, Astro.url.searchParams.get("temario")));
+const temario = await getTemario(db, temarioId);
 let error: string | null = null;
 let saved = false;
 
@@ -26,13 +32,13 @@ if (Astro.request.method === "POST") {
     const v = { ...parsed.data, activo: parsed.data.activo === "on" };
     try {
       if (isNew) {
-        const [row] = await db.insert(schema.units).values(v).returning({ id: schema.units.id });
+        const [row] = await db.insert(schema.units).values({ ...v, temarioId }).returning({ id: schema.units.id });
         return Astro.redirect(`/admin/temas/${row.id}?ok=1`, 303);
       }
       await db.update(schema.units).set(v).where(eq(schema.units.id, Number(Astro.params.id)));
       saved = true;
     } catch (e: any) {
-      error = /UNIQUE/.test(String(e?.message ?? e)) ? "Ya existe un tema con ese identificador." : "No se pudo guardar.";
+      error = /UNIQUE/.test(String(e?.message ?? e)) ? "Ya existe un tema con ese identificador en este temario." : "No se pudo guardar.";
     }
   }
 }
@@ -44,6 +50,7 @@ saved ||= Astro.url.searchParams.has("ok");
   <p class="eyebrow">Administración</p>
   <h1>{unit ? `Editar: ${unit.titulo}` : "Nuevo tema"}</h1>
   <AdminNav />
+  <p class="muted">Temario: <a href={`/admin/temas?temario=${encodeURIComponent(temarioId)}`}>{temario?.nombre ?? temarioId}</a>{temarioId === Astro.locals.temario.id ? " (activo)" : " (no activo)"}</p>
   {saved && <div class="alert ok" role="status" tabindex="-1" data-focus-on-load>Guardado.</div>}
   {error && <div class="alert bad" role="alert" id="tema-error" tabindex="-1" data-focus-on-load>{error}</div>}
   <form method="post" class="card">
@@ -58,7 +65,7 @@ saved ||= Astro.url.searchParams.has("ok");
     <textarea id="contenido" name="contenido" style="min-height:60vh;font-family:ui-monospace,monospace" required>{unit?.contenido ?? ""}</textarea>
     <div class="row" style="margin-top:1rem">
       <button class="btn primary" type="submit">Guardar</button>
-      {unit && <a class="btn ghost" href={`/temario/${unit.slug}`} target="_blank">Ver como alumno</a>}
+      {unit && <a class="btn ghost" href={`/temario/${unit.slug}${unit.temarioId === Astro.locals.temario.id ? "" : `?temario=${encodeURIComponent(unit.temarioId)}`}`} target="_blank">Ver como alumno</a>}
     </div>
   </form>
   <p class="muted" id="peso-help">El peso indica qué proporción de preguntas del examen final sale de este tema respecto al resto (peso 0 = no entra en el examen final).</p>

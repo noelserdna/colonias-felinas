@@ -160,7 +160,7 @@ const noteRole = (section: string) => (note(section)?.ok ? "status" : "alert");
       <small class="muted" id="accesibilidad-help">Se publican en la <a href="/accesibilidad">declaración de accesibilidad</a>. Al correo también se envía un aviso con cada comunicación nueva. Opcionales.</small>
       <label for="credito_formativo">Autoría del contenido formativo <span class="muted">(opcional)</span></label>
       <input id="credito_formativo" name="credito_formativo" type="text" maxlength="160" autocomplete="off" value={branding.credito_formativo ?? ""} aria-describedby="credito-help" />
-      <small class="muted" id="credito-help">Se cita en el pie de todas las páginas, por ejemplo «Colegio Oficial de Veterinarios de …». Déjalo vacío si el temario es propio.</small>
+      <small class="muted" id="credito-help">Se cita en el pie de todas las páginas, por ejemplo «Colegio Oficial de Veterinarios de …». Si el temario activo tiene su propia autoría (<a href="/admin/temarios">Temarios</a>), se cita esa en su lugar.</small>
       <div class="row" style="align-items:center;margin-top:1rem;gap:1.25rem">
         <div class="escudo-preview">
           <img src={branding.escudo.src} alt={`Escudo actual del ${branding.ayuntamiento}`} />

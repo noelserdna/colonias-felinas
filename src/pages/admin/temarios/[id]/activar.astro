@@ -1,0 +1,62 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import AdminNav from "../../../../components/AdminNav.astro";
+import { getDb } from "../../../../lib/db";
+import { bankCoverage } from "../../../../lib/admin";
+import { activarTemario, getTemario, impactoActivar, TemarioError } from "../../../../lib/temarios";
+
+const db = getDb();
+const id = Astro.params.id!;
+const t = await getTemario(db, id);
+if (!t) return new Response("No encontrado", { status: 404 });
+let error: string | null = null;
+if (Astro.request.method === "POST") {
+  const f = await Astro.request.formData();
+  if (f.get("confirmo") !== "on") error = "Marca la casilla para confirmar el cambio de temario.";
+  else {
+    try {
+      await activarTemario(db, id);
+      return Astro.redirect(`/admin/temarios?activado=${encodeURIComponent(id)}`, 303);
+    } catch (e) {
+      error = e instanceof TemarioError ? e.message : "No se pudo activar el temario.";
+    }
+  }
+}
+const actual = Astro.locals.temario;
+const cov = await bankCoverage(db, id);
+const avisosCobertura = [...cov.global, ...cov.rows.filter((r) => r.unit.activo).flatMap((r) => r.warnings.map((w) => `tema ${r.unit.orden} (${r.unit.titulo}): ${w.toLowerCase()}`))];
+const impacto = await impactoActivar(db, id, avisosCobertura);
+const yaActivo = actual.id === id;
+---
+<Layout title={`Activar ${t.nombre}`} wide>
+  <p class="eyebrow">Administración · Temarios</p>
+  <h1>Activar «{t.nombre}»</h1>
+  <AdminNav />
+  {error && <div class="alert bad" role="alert" tabindex="-1" data-focus-on-load>{error}</div>}
+  {yaActivo ? (
+    <div class="alert ok" role="status">Este temario ya es el activo. <a href="/admin/temarios">Volver a Temarios</a></div>
+  ) : impacto.bloqueo || t.oculto ? (
+    <div class="alert bad" role="alert">
+      <span>{t.oculto ? "El temario está oculto: muéstralo antes de activarlo." : impacto.bloqueo} <a href={`/admin/temarios/${t.id}`}>Volver al temario</a></span>
+    </div>
+  ) : (
+    <section class="card" aria-labelledby="impacto-h">
+      <h2 class="mt-0" id="impacto-h">Qué va a pasar</h2>
+      <p class="mt-0">
+        El curso dejará de usar <strong>{actual.nombre}</strong> y pasará a usar <strong>{t.nombre}</strong> ({cov.rows.filter((r) => r.unit.activo).length} temas):
+        el temario, los tests de cada tema y el examen final saldrán de este temario desde ese momento.
+      </p>
+      <ul>
+        {impacto.avisos.map((a) => <li>{a}</li>)}
+      </ul>
+      <p class="muted">Se puede volver al temario anterior en cualquier momento desde Temarios.</p>
+      <form method="post">
+        <label class="check"><input type="checkbox" name="confirmo" required /> <span>Entiendo lo que cambia y quiero activar «{t.nombre}».</span></label>
+        <div class="row" style="margin-top:1rem">
+          <button class="btn primary" type="submit">Activar el temario</button>
+          <a class="btn ghost" href="/admin/temarios">Cancelar</a>
+        </div>
+      </form>
+    </section>
+  )}
+</Layout>

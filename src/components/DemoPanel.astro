@@ -3,12 +3,13 @@
 import { count, eq } from "drizzle-orm";
 import Icon from "./Icon.astro";
 import { getDb, schema } from "../lib/db";
-import { PERSONAS, personaOf } from "../lib/demo-personas";
+import { personaConTextos, personaOf } from "../lib/demo-personas";
+import { cursoDemo } from "../lib/demo-data";
 
 const user = Astro.locals.user!;
 const key = personaOf(user.email);
-const p = key ? PERSONAS[key] : null;
 const db = getDb();
+const p = key ? personaConTextos(key, await cursoDemo(db)) : null;
 const [{ n }] = await db
   .select({ n: count() })
   .from(schema.demoOutbox)

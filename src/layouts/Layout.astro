@@ -22,6 +22,8 @@ const demo = isDemo();
 const unread = Astro.locals.user ? await unreadNoticeCount(getDb(), Astro.locals.user.id) : 0;
 const user = Astro.locals.user;
 const branding = Astro.locals.branding;
+// Autoría del temario activo; si no la tiene, la indicada en Ajustes.
+const credito = Astro.locals.temario?.credito ?? branding.credito_formativo;
 const path = Astro.url.pathname;
 const hasCarnet = Astro.locals.hasCarnet;
 const adminLink = user?.role === "admin" ? [{ href: "/admin", label: "Admin", icon: "shield" as IconName }] : [];
@@ -101,7 +103,7 @@ const active = (n: (typeof nav)[number]) => n.match(path);
       <slot />
     </main>
     <footer class="footer">
-      <a href="/privacidad">Privacidad</a> · <a href={path === "/accesibilidad" ? "/accesibilidad" : `/accesibilidad?desde=${encodeURIComponent(path)}`}>Accesibilidad</a> · <a href="/documentos">Documentos</a>{branding.credito_formativo && <> · Contenido formativo: {branding.credito_formativo}</>}
+      <a href="/privacidad">Privacidad</a> · <a href={path === "/accesibilidad" ? "/accesibilidad" : `/accesibilidad?desde=${encodeURIComponent(path)}`}>Accesibilidad</a> · <a href="/documentos">Documentos</a>{credito && <> · Contenido formativo: {credito}</>}
     </footer>
     {demo && user && <DemoPanel />}
     {nav.length > 0 && (
