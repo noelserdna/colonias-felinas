@@ -1,0 +1,427 @@
+[
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es un gato comunitario?",
+    "opciones": [
+      "Un gato montés que vive en el campo",
+      "Un gato doméstico que vive libre en un sitio",
+      "Un gato con dueño que sale a la calle",
+      "Un gato de protectora que espera una adopción"
+    ],
+    "correcta": 1,
+    "explicacion": "Es un gato doméstico que vive libre, ligado a un territorio y con poco o ningún trato con las personas."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿De qué especie es un gato de colonia?",
+    "opciones": [
+      "De una especie salvaje distinta",
+      "De un cruce con el gato montés",
+      "De una raza callejera propia",
+      "De la misma que el gato de casa"
+    ],
+    "correcta": 3,
+    "explicacion": "Es la misma especie que el gato de casa. Lo que cambia es cuánto confía en las personas."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿De dónde vienen los gatos que forman una colonia?",
+    "opciones": [
+      "De gatos abandonados, perdidos o sin esterilizar",
+      "De gatos salvajes que bajan del monte buscando comida",
+      "De gatos que escapan de las protectoras",
+      "De gatos que traen los propios ayuntamientos"
+    ],
+    "correcta": 0,
+    "explicacion": "Las colonias nacen de gatos abandonados, perdidos o con dueño sin esterilizar que crían donde hay comida y refugio."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Si dudas de si un gato está socializado, ¿cómo debes tratarlo?",
+    "opciones": [
+      "Como un gato de casa",
+      "Como un gato perdido",
+      "Como no socializado",
+      "Como un gato enfermo"
+    ],
+    "correcta": 2,
+    "explicacion": "Ante la duda, trata al gato como no socializado: así evitas sustos, arañazos y estrés para el gato."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "En zonas rurales con pocas personas cuidadoras, ¿qué recomienda priorizar la Directriz estatal?",
+    "opciones": [
+      "Dar más comida a los gatos",
+      "Trasladar gatos a la ciudad",
+      "Retirar los gatos más jóvenes",
+      "El método CER"
+    ],
+    "correcta": 3,
+    "explicacion": "Con poca gente para mucho territorio, lo más eficaz es priorizar la captura, esterilización y retorno."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Puedes soltar en una colonia un gato que ya no puedes cuidar?",
+    "opciones": [
+      "Sí, si el gato es joven y sano",
+      "No, nunca: es un abandono",
+      "Sí, si la colonia es pequeña",
+      "Sí, con permiso de quien la cuida"
+    ],
+    "correcta": 1,
+    "explicacion": "Soltar un gato en una colonia es abandonarlo. Además, el grupo lo rechaza y sufre estrés, peleas y contagios."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Los nacimientos son la principal entrada de gatos en una colonia. ¿Cómo se corta esa entrada?",
+    "opciones": [
+      "Retirando a los gatitos",
+      "Dando menos comida",
+      "Esterilizando",
+      "Cambiando la colonia de sitio"
+    ],
+    "correcta": 2,
+    "explicacion": "Solo la esterilización corta los nacimientos, que son la entrada principal de gatos en la colonia."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cuál es el objetivo de gestionar una colonia?",
+    "opciones": [
+      "Que disminuya poco a poco sin sacrificar gatos",
+      "Mantener siempre el mismo número de gatos en ella",
+      "Retirar todos los gatos lo antes posible",
+      "Que crezca de forma ordenada y sana"
+    ],
+    "correcta": 0,
+    "explicacion": "No se trata de mantener la colonia para siempre, sino de reducirla poco a poco con CER y adopción, sin sacrificar gatos."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué significan las siglas CER?",
+    "opciones": [
+      "Censo, examen y registro",
+      "Cuidado, esterilización y reubicación",
+      "Captura, eutanasia y retirada",
+      "Captura, esterilización y retorno"
+    ],
+    "correcta": 3,
+    "explicacion": "CER es captura, esterilización y retorno: el gato vuelve a su colonia después de esterilizarlo."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué parte de una colonia hay que esterilizar, como mínimo, para que deje de crecer?",
+    "opciones": [
+      "Al menos el 70-75 %",
+      "Alrededor del 30 %",
+      "Basta con la mitad",
+      "Con un 20 % es suficiente"
+    ],
+    "correcta": 0,
+    "explicacion": "Hace falta esterilizar al menos el 70-75 % para que la colonia deje de crecer; muchos programas buscan más."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un gato de la colonia se acerca, se frota contra ti y se deja tocar. ¿Qué es lo más probable?",
+    "opciones": [
+      "Que es un gato feral que tiene mucha hambre",
+      "Que es un gato montés joven",
+      "Que es sociable y podría ir a adopción",
+      "Que está enfermo y busca ayuda"
+    ],
+    "correcta": 2,
+    "explicacion": "Frotarse y dejarse tocar son señales de un gato socializado; estos gatos pueden ir a adopción."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Si se retiran gatos de una colonia y la comida y el refugio siguen ahí, ¿qué pasa?",
+    "opciones": [
+      "La colonia desaparece poco a poco",
+      "El hueco lo ocupan otros gatos",
+      "Los gatos que quedan se marchan",
+      "Dejan de nacer gatitos"
+    ],
+    "correcta": 1,
+    "explicacion": "El tamaño de la colonia se ajusta a los recursos: sobreviven más gatitos y llegan gatos de fuera."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Una colonia vive en el patio de una comunidad de propietarios. ¿Qué necesitas para gestionarla?",
+    "opciones": [
+      "Nada, porque los gatos no tienen dueño",
+      "Avisar solo al portero del edificio",
+      "El permiso de la comunidad",
+      "Un informe del veterinario"
+    ],
+    "correcta": 2,
+    "explicacion": "En espacios con dueño, como comunidades, empresas u organismos, no se gestiona una colonia sin su permiso."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Por qué no conviene poner comida para los gatos junto al monte?",
+    "opciones": [
+      "Porque allí la comida se estropea antes",
+      "Porque los gatos que viven en el monte no comen pienso",
+      "Porque atrae a los perros de los vecinos",
+      "Por los cruces con el gato montés y la caza de fauna"
+    ],
+    "correcta": 3,
+    "explicacion": "Los gatos sin esterilizar pueden cruzarse con el gato montés, que está protegido, y cazan fauna silvestre."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "En un pueblo, un gato ronda varias casas y le dan de comer, pero nadie se considera su dueño. ¿Cómo se llama esto?",
+    "opciones": [
+      "Acogida",
+      "Semipropiedad",
+      "Adopción",
+      "Tenencia compartida"
+    ],
+    "correcta": 1,
+    "explicacion": "Es la semipropiedad: alguien le da de comer, pero nadie se hace cargo de él ni lo esteriliza."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Dónde es mala idea poner un comedero de colonia en la ciudad?",
+    "opciones": [
+      "Junto a un colegio o un arenero",
+      "En un rincón apartado de un parque",
+      "En un solar vallado con permiso",
+      "En un patio de manzana autorizado"
+    ],
+    "correcta": 0,
+    "explicacion": "Junto a colegios, areneros, hospitales, zonas de perros o tráfico no se ponen comederos: son zonas sensibles."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Qué riesgo traen a veces quienes pasan el verano en una segunda residencia?",
+    "opciones": [
+      "Que esterilicen gatos sin avisar a nadie",
+      "Que asusten a los gatos con el coche",
+      "Que abandonen gatos al marcharse",
+      "Que se lleven los comederos de la colonia"
+    ],
+    "correcta": 2,
+    "explicacion": "Los residentes temporales pueden dar de comer sin control y abandonar gatos cuando se van."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "En un pueblo pequeño sin protectora, ¿quién suele coordinar la adopción de gatos?",
+    "opciones": [
+      "La persona cuidadora por su cuenta",
+      "Los vecinos que les dan de comer",
+      "La comunidad autónoma",
+      "El ayuntamiento y el veterinario"
+    ],
+    "correcta": 3,
+    "explicacion": "En los pueblos pequeños la adopción la coordinan el ayuntamiento y el veterinario, a veces con entidades de la comarca."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Junto a una colonia hay contenedores con bolsas de basura rotas. ¿Qué efecto tiene?",
+    "opciones": [
+      "Alimenta a los gatos sin control",
+      "Hace que los gatos se vayan a otra zona",
+      "Evita que los gatos cacen",
+      "Ninguno, los gatos no comen basura"
+    ],
+    "correcta": 0,
+    "explicacion": "La basura y los restos alimentan a los gatos sin que nadie lo decida, y más comida sostiene más gatos."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Un vecino dice que un gato es manso porque se queda quieto y callado cuando te acercas. ¿Qué haces?",
+    "opciones": [
+      "Cogerlo en brazos para comprobarlo",
+      "Tratarlo como no socializado",
+      "Acariciarlo despacio para que se acostumbre",
+      "Llevarlo a casa para adoptarlo"
+    ],
+    "correcta": 1,
+    "explicacion": "Quedarse inmóvil y en silencio puede ser miedo, no calma. Ante la duda, se trata como no socializado."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Una colonia de un parque está casi toda esterilizada, pero siguen apareciendo gatos sin esterilizar. ¿Qué es lo más útil?",
+    "opciones": [
+      "Retirar a los gatos nuevos en cuanto aparezcan",
+      "Esterilizar también las colonias cercanas",
+      "Dar menos comida para que no vengan",
+      "Cambiar el comedero de sitio"
+    ],
+    "correcta": 1,
+    "explicacion": "En la ciudad los gatos pasan de una colonia a otra: hay que esterilizar por zonas, no colonia a colonia."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Aparece en la colonia un gato que no conoces, limpio y muy confiado con la gente. ¿Qué es lo mejor?",
+    "opciones": [
+      "Dejarlo como uno más de la colonia",
+      "Llevarlo a otra colonia con menos gatos",
+      "Esterilizarlo y devolverlo a la colonia",
+      "Buscarle un hogar en adopción"
+    ],
+    "correcta": 3,
+    "explicacion": "Un gato sociable recién llegado suele ser abandonado o perdido: no debería estar en la calle y puede ir a adopción."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué señales indican que un gato probablemente no está socializado? Marca todas las correctas.",
+    "opciones": [
+      "Bufa o gruñe si te acercas",
+      "Se frota y se deja tocar",
+      "Se esconde durante el día",
+      "Lleva la cola levantada y el cuerpo relajado",
+      "Tiene el cuerpo tenso y las orejas hacia atrás"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "Bufar, esconderse de día y el cuerpo tenso con las orejas atrás son señales de miedo a las personas."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "Además de esterilizar con el método CER, ¿qué ayuda a reducir una colonia? Marca todas las correctas.",
+    "opciones": [
+      "Dar en adopción a gatitos y gatos sociables",
+      "Retirar gatos sin esterilizarlos",
+      "Evitar que lleguen gatos nuevos",
+      "Alimentar con orden y limpiar el entorno",
+      "Trasladar gatos a otras colonias"
+    ],
+    "correctas": [
+      0,
+      2,
+      3
+    ],
+    "explicacion": "El CER se combina con la adopción, con evitar nuevas entradas y con una alimentación ordenada y limpia."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "multi",
+    "dificultad": "media",
+    "enunciado": "¿Qué hace que entren gatos en una colonia? Marca todas las correctas.",
+    "opciones": [
+      "Los nacimientos",
+      "Las adopciones",
+      "Los abandonos",
+      "Las muertes",
+      "Las llegadas de otras zonas"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "Entran gatos por nacimientos, abandonos, extravíos y llegadas; las muertes y adopciones son salidas."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica qué problemas trae una colonia sin control y cómo cambia cuando se gestiona.",
+    "respuesta_referencia": "Sin control nacen gatitos que mueren pronto y hay peleas, maullidos de celo, marcaje con orina y quejas vecinales. Gestionada, la colonia es más pequeña, sana y tranquila.",
+    "puntos_clave": [
+      "Sin control hay gatitos que mueren, peleas, celo o quejas de vecinos",
+      "Gestionada es más pequeña, más sana y más tranquila"
+    ],
+    "explicacion": "La gestión reduce los problemas para los gatos y para los vecinos."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica con tus palabras qué quiere decir que la socialización de los gatos es un espectro.",
+    "respuesta_referencia": "Que entre el gato que nunca ha tratado con personas y el gato de casa hay muchos grados intermedios, y que un gato puede cambiar con el tiempo.",
+    "puntos_clave": [
+      "Hay muchos grados entre el gato huraño o feral y el gato de casa",
+      "La socialización de un gato puede cambiar con el tiempo"
+    ],
+    "explicacion": "No hay cajas cerradas: cada gato confía más o menos en las personas, y eso puede cambiar."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es el gato montés y en qué se diferencia de un gato atigrado de colonia?",
+    "respuesta_referencia": "Es un felino silvestre protegido que vive en zonas de monte. Es algo más robusto y tiene la cola gruesa con dos o tres anillos oscuros y la punta negra y roma.",
+    "puntos_clave": [
+      "Es un felino silvestre y protegido, no un gato doméstico",
+      "Es más robusto o tiene la cola gruesa con anillos oscuros y la punta negra"
+    ],
+    "explicacion": "Se confunde fácilmente con un gato atigrado, pero no es un gato doméstico."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Explica una diferencia importante entre cuidar colonias en una ciudad y en un pueblo.",
+    "respuesta_referencia": "En la ciudad hay muchas colonias cercanas y muchos cuidadores, así que hay que coordinarse y esterilizar por zonas. En el pueblo hay pocos cuidadores para mucho territorio y muchos gatos en semipropiedad.",
+    "puntos_clave": [
+      "En la ciudad hay más colonias cercanas y más gente, y hay que coordinarse o actuar por zonas",
+      "En el pueblo hay pocos cuidadores para mucho territorio o gatos sin dueño claro"
+    ],
+    "explicacion": "La gestión se adapta a cada zona: basta con explicar bien una diferencia."
+  },
+  {
+    "tema": "gatos-comunitarios",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "¿Por qué lo pasa mal un gato al que alguien suelta en una colonia que no es la suya?",
+    "respuesta_referencia": "Porque el grupo rechaza a los extraños y tarda mucho en aceptarlos: el gato sufre estrés, peleas y contagios. Además, soltarlo es un abandono.",
+    "puntos_clave": [
+      "El grupo rechaza a los gatos extraños",
+      "Sufre estrés, peleas o contagios"
+    ],
+    "explicacion": "Las colonias son grupos estables que no aceptan fácilmente a gatos nuevos."
+  }
+]

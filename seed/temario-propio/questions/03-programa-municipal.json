@@ -1,0 +1,427 @@
+[
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué colonias se pueden cuidar dentro del programa municipal?",
+    "opciones": [
+      "Cualquier grupo de gatos de la calle",
+      "Solo las registradas por el ayuntamiento",
+      "Solo las que están en terreno privado",
+      "Solo las que tienen menos de diez gatos censados"
+    ],
+    "correcta": 1,
+    "explicacion": "Solo se cuidan colonias registradas por el ayuntamiento, y solo lo hacen personas formadas y acreditadas."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Quién es el contacto de una colonia con el ayuntamiento?",
+    "opciones": [
+      "La persona cuidadora responsable",
+      "Cualquier persona colaboradora",
+      "El veterinario de la clínica",
+      "El vecino que vive más cerca"
+    ],
+    "correcta": 0,
+    "explicacion": "Cada colonia tiene una persona cuidadora responsable, que es su contacto con el ayuntamiento."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué recibe una colonia cuando el ayuntamiento aprueba su registro?",
+    "opciones": [
+      "Una subvención anual",
+      "Un comedero oficial",
+      "Un seguro para los gatos",
+      "Un número de registro"
+    ],
+    "correcta": 3,
+    "explicacion": "El ayuntamiento revisa el lugar y, si todo está en orden, la colonia recibe un número de registro."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cuándo debes llevar tu carné de persona cuidadora?",
+    "opciones": [
+      "Solo el día de una captura",
+      "Siempre que atiendas la colonia",
+      "Solo si te lo pide un vecino",
+      "Solo cuando vas a la clínica"
+    ],
+    "correcta": 1,
+    "explicacion": "El carné es personal y debes llevarlo siempre que atiendas la colonia."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué pasa cuando el ayuntamiento registra tu colonia en la aplicación?",
+    "opciones": [
+      "Recibes un aviso y aparece en tu carnet",
+      "Tienes que repetir el examen final",
+      "Se borra el censo que tenías",
+      "Nada, tienes que darla de alta tú mismo"
+    ],
+    "correcta": 0,
+    "explicacion": "El ayuntamiento te asigna a la colonia, recibes un aviso y la colonia aparece en tu carnet."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cómo se alimenta a una colonia dentro del programa?",
+    "opciones": [
+      "Restos de comida casera en el suelo",
+      "Mucha comida una vez por semana",
+      "Pienso seco, agua y horario fijo",
+      "Pan mojado en leche cada día"
+    ],
+    "correcta": 2,
+    "explicacion": "Se da pienso seco y agua limpia con horario fijo, sin dejar comida en el suelo."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué suele ofrecer el programa municipal a quien cuida una colonia?",
+    "opciones": [
+      "Un sueldo mensual fijo",
+      "Un seguro de accidentes propio",
+      "Un vehículo para las capturas",
+      "Las esterilizaciones del CER"
+    ],
+    "correcta": 3,
+    "explicacion": "Lo habitual es la formación, el carné y las esterilizaciones (a veces, jaulas trampa). Normalmente no hay seguro."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Quién esteriliza, marca la oreja e identifica a los gatos de la colonia?",
+    "opciones": [
+      "La persona cuidadora",
+      "El personal del ayuntamiento",
+      "El veterinario autorizado",
+      "La policía local"
+    ],
+    "correcta": 2,
+    "explicacion": "La clínica o el veterinario autorizado esteriliza, marca la oreja, identifica y trata a los gatos."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Vas a dejar de cuidar tu colonia. ¿Qué debes hacer?",
+    "opciones": [
+      "Dejar de ir sin decir nada",
+      "Avisar con antelación",
+      "Llevarte los comederos a casa",
+      "Retirar a los gatos antes"
+    ],
+    "correcta": 1,
+    "explicacion": "Si dejas la colonia o te vas a ausentar mucho tiempo, avisa con la antelación que pida tu programa."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cómo se presentan las quejas sobre una colonia?",
+    "opciones": [
+      "Por escrito, con una instancia general",
+      "Hablando con la persona cuidadora",
+      "Llamando a la policía local",
+      "Dejando una nota en el comedero"
+    ],
+    "correcta": 0,
+    "explicacion": "Las quejas van por escrito al ayuntamiento, con una instancia general, y el ayuntamiento hace de mediador."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un domingo por la noche encuentras un gato de la colonia gravemente herido. ¿A quién llamas?",
+    "opciones": [
+      "Al ayuntamiento",
+      "A la protectora",
+      "Al 112",
+      "A nadie hasta el lunes"
+    ],
+    "correcta": 2,
+    "explicacion": "Lo normal es avisar al ayuntamiento en horario de oficina; fuera de horario, si es urgente, al 112."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "El propietario de un solar se niega a que gestiones la colonia que vive allí. ¿Qué haces?",
+    "opciones": [
+      "Entrar igualmente a dar de comer",
+      "Llevarte los gatos a otro sitio",
+      "Seguir sin decir nada a nadie",
+      "Avisar al ayuntamiento"
+    ],
+    "correcta": 3,
+    "explicacion": "No actúes por tu cuenta: avisa al ayuntamiento. Quien impide la gestión pasa a responder de esos gatos."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "La colonia está en el jardín de una comunidad de propietarios. ¿Qué autorización necesitas?",
+    "opciones": [
+      "La de cualquier vecino del edificio",
+      "La de la comunidad, por acuerdo de junta",
+      "Solo la del conserje o el portero",
+      "Ninguna, porque los gatos entran allí solos"
+    ],
+    "correcta": 1,
+    "explicacion": "En terreno privado hace falta autorización expresa; en una comunidad, normalmente por acuerdo de la junta."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Varias personas cuidáis la misma colonia. ¿Cómo evitáis que los gatos coman dos veces?",
+    "opciones": [
+      "Un horario común y todo anotado",
+      "Cada una va cuando puede",
+      "Dejando comida de sobra por la noche",
+      "Poniendo un comedero por persona"
+    ],
+    "correcta": 0,
+    "explicacion": "Un solo horario, días repartidos y todo anotado en la aplicación evitan que nadie dé de comer dos veces."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino echa comida por su cuenta cerca de tu colonia. ¿Qué haces?",
+    "opciones": [
+      "Discutir con él para que pare",
+      "Retirar su comida sin decirle nada",
+      "Invitarle a sumarse a tu horario",
+      "Denunciarlo en la policía local"
+    ],
+    "correcta": 2,
+    "explicacion": "Invítalo a acreditarse o a sumarse a tu horario; si no quiere, informa al ayuntamiento, sin enfrentarte."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "No tienes coche para llevar un gato capturado a la clínica. ¿Qué haces?",
+    "opciones": [
+      "Dejar el gato en la jaula hasta tener coche",
+      "Soltarlo sin esterilizar",
+      "Llevarlo a cualquier clínica cercana",
+      "Preguntar si el programa hace el traslado"
+    ],
+    "correcta": 3,
+    "explicacion": "Algunos programas se encargan de la captura o del traslado con personal propio o contratado: pregunta."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Quieres llevar un gato de la colonia a una clínica distinta de la del programa. ¿Qué suele pasar?",
+    "opciones": [
+      "Que lo pagas tú",
+      "Que no se permite nunca",
+      "Que paga el ayuntamiento",
+      "Que lo paga la protectora"
+    ],
+    "correcta": 0,
+    "explicacion": "El gato va a la clínica que indique el programa; si eliges otra, lo normal es que la pagues tú."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Una colonia tiene 20 gatos y 15 están esterilizados. ¿Qué es cierto?",
+    "opciones": [
+      "Ya está controlada del todo",
+      "Está al 75 %: aún queda trabajo",
+      "Está al 50 %: crece sin control",
+      "No se puede saber sin veterinario"
+    ],
+    "correcta": 1,
+    "explicacion": "15 de 20 es el 75 %: la colonia deja de crecer, pero aún hay que llegar a más esterilizados."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino se queja de la colonia mientras das de comer. ¿Qué haces?",
+    "opciones": [
+      "Rebatirle con datos hasta que te dé la razón",
+      "Ignorarle y seguir con lo tuyo",
+      "Escucharle y explicarle cómo quejarse",
+      "Pedirle que hable con la protectora"
+    ],
+    "correcta": 2,
+    "explicacion": "Escúchalo, no discutas y explícale que puede presentar su queja por escrito al ayuntamiento."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Durante una captura en una zona conflictiva, alguien te amenaza. ¿Qué haces?",
+    "opciones": [
+      "Discutir para defender a los gatos",
+      "Seguir con la captura sin mirarle",
+      "Enseñarle la ordenanza y quedarte",
+      "Apartarte y llamar al 112"
+    ],
+    "correcta": 3,
+    "explicacion": "Tu seguridad va primero: no discutas, apártate y llama al 112. Mejor ir con luz de día o con compañía."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Tu colonia está casi toda esterilizada, pero hoy ves una camada de gatitos. ¿Qué es lo mejor?",
+    "opciones": [
+      "Esperar al próximo censo para anotarlos",
+      "Avisar enseguida y actualizar el censo",
+      "Cogerlos y llevarlos a tu casa",
+      "No hacer nada: la colonia está casi controlada"
+    ],
+    "correcta": 1,
+    "explicacion": "Los gatitos y los gatos nuevos se avisan enseguida, sin esperar al censo periódico: las camadas son una prioridad de esterilización."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Eres la única persona que cuida una colonia y quieres dejarla. ¿Qué haces?",
+    "opciones": [
+      "Borrar la colonia de la aplicación",
+      "Dejar de hacer el censo sin avisar",
+      "Indicar quién se hará cargo y avisar",
+      "Esperar a que el carné caduque solo"
+    ],
+    "correcta": 2,
+    "explicacion": "La aplicación te pide indicar quién se hará cargo, y además debes avisar con la antelación que fije tu programa."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué requisitos suelen pedirse para acreditarte como persona cuidadora? Marca todas las correctas.",
+    "opciones": [
+      "Tener coche propio",
+      "Ser mayor de edad",
+      "Superar la formación",
+      "Tener estudios de veterinaria",
+      "Firmar un compromiso con tus obligaciones"
+    ],
+    "correctas": [
+      1,
+      2,
+      4
+    ],
+    "explicacion": "Lo habitual es ser mayor de edad, pedir el alta, superar la formación y firmar un compromiso."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué forma parte de pedir el registro de una colonia? Marca todas las correctas.",
+    "opciones": [
+      "Contar los gatos varios días y a distintas horas",
+      "Dibujar un croquis detallado del lugar",
+      "Indicar la dirección y las coordenadas",
+      "Pagar una cuota a la protectora",
+      "Presentar una instancia general"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "Se cuentan los gatos, se indica la ubicación con dirección y coordenadas (sin croquis) y se presenta una instancia general."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "multi",
+    "dificultad": "media",
+    "enunciado": "¿De qué debes avisar al ayuntamiento? Marca todas las correctas.",
+    "opciones": [
+      "Gatitos nuevos en la colonia",
+      "Un gato herido o enfermo",
+      "Cada vez que das de comer",
+      "Varios gatos nuevos en la colonia",
+      "Que un gato ha faltado un solo día"
+    ],
+    "correctas": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "Hay que avisar de gatitos, gatos nuevos, heridos o enfermos. La rutina diaria se anota, pero no hace falta comunicarla."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica qué papel tiene el ayuntamiento en el programa de colonias.",
+    "respuesta_referencia": "Registra las colonias, forma y acredita a quienes cuidan, organiza las esterilizaciones, inspecciona y media en los conflictos.",
+    "puntos_clave": [
+      "Registra las colonias y acredita a quienes cuidan",
+      "Organiza las esterilizaciones, inspecciona o media en conflictos"
+    ],
+    "explicacion": "El ayuntamiento coordina todo el programa; tú colaboras siguiendo sus pautas."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica la diferencia entre la persona cuidadora responsable y las personas colaboradoras.",
+    "respuesta_referencia": "La responsable atiende la colonia, lleva el censo y es el contacto con el ayuntamiento. Las colaboradoras ayudan con la comida, la limpieza, la vigilancia y las capturas.",
+    "puntos_clave": [
+      "La responsable lleva el censo y es el contacto con el ayuntamiento",
+      "Las colaboradoras ayudan con comida, limpieza, vigilancia o capturas"
+    ],
+    "explicacion": "Cada colonia tiene una responsable y puede tener varias colaboradoras."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Nombra dos cosas que conviene preguntar en tu ayuntamiento porque cambian de un programa a otro.",
+    "respuesta_referencia": "Por ejemplo: cada cuánto se actualiza el censo, en qué oreja se hace la marca, con cuánta antelación avisar si dejas la colonia, qué clínica opera, quién presta las jaulas o el teléfono y el horario del ayuntamiento.",
+    "puntos_clave": [
+      "Nombra un dato que fija cada ayuntamiento (censo, marca en la oreja, antelación, plazo de retorno, clínica, jaulas, carné, teléfono…)",
+      "Nombra otro dato distinto de esa misma lista"
+    ],
+    "explicacion": "Cada municipio tiene su programa: estos detalles los fija tu ayuntamiento."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "¿Por qué en la ciudad las capturas se planifican por zonas y no colonia a colonia?",
+    "respuesta_referencia": "Porque los gatos se mueven entre colonias vecinas. Si solo se esteriliza una, siguen llegando gatos sin esterilizar de las de al lado.",
+    "puntos_clave": [
+      "Los gatos se mueven entre colonias cercanas",
+      "Si se esteriliza solo una colonia, llegan gatos sin esterilizar de otras"
+    ],
+    "explicacion": "Coordinarse entre colonias vecinas hace que la esterilización funcione."
+  },
+  {
+    "tema": "programa-municipal",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Después de esterilizar un gato de la colonia, ¿adónde y cuándo vuelve?",
+    "respuesta_referencia": "Vuelve al mismo lugar de donde salió, cuando lo decida el veterinario y lo antes posible: lo ideal es en unas 24 horas.",
+    "puntos_clave": [
+      "Vuelve al mismo lugar",
+      "Cuando lo decida el veterinario, lo antes posible"
+    ],
+    "explicacion": "El retorno rápido al mismo sitio es parte del método CER."
+  }
+]

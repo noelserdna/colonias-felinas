@@ -21,7 +21,7 @@ excusa de un conflicto anterior.
 | «Huele a orina» | Los machos sin castrar marcan | La castración lo reduce mucho; limpia los rincones marcados |
 | «Me ensucian el jardín» | Buscan tierra blanda; muchos son gatos con dueño que salen | Propón un aspersor con sensor o malla sobre la tierra (lo decide el propietario) y un arenero en otra zona |
 | «Hay comida tirada, ratas y palomas» | Sobras | Horario fijo, retirar lo que quede a la media hora, limpiar cada día |
-| «Nos van a pegar enfermedades» | Miedo | La colonia está vacunada y desparasitada; con higiene, el riesgo es bajo |
+| «Nos van a pegar enfermedades» | Miedo | En una colonia gestionada, los gatos se vacunan y desparasitan al esterilizarlos; con higiene, el riesgo es bajo |
 | «Que se los lleven» | Hartazgo | La ley no permite retirarlos sin más, y si se van, llegan otros; el CER hace que la colonia baje |
 
 Si el vecino no queda conforme, no discutas: la **queja formal** se presenta **por escrito** al

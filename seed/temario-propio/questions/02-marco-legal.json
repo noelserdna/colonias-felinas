@@ -1,0 +1,427 @@
+[
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Si una ordenanza municipal protege menos a los gatos que la ley estatal, ¿qué norma manda?",
+    "opciones": [
+      "La ordenanza municipal",
+      "La ley estatal",
+      "La que sea más reciente",
+      "La que elija el ayuntamiento"
+    ],
+    "correcta": 1,
+    "explicacion": "La ley estatal rige en toda España; las normas autonómicas y municipales solo pueden completarla o ser más exigentes."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Además de estar esterilizados, ¿qué deben llevar todos los gatos comunitarios?",
+    "opciones": [
+      "Microchip a nombre del ayuntamiento",
+      "Un collar con el nombre de la colonia",
+      "Microchip a nombre de quien los cuida",
+      "Una chapa con el teléfono de la protectora"
+    ],
+    "correcta": 0,
+    "explicacion": "Todos los gatos comunitarios deben estar esterilizados y llevar microchip a nombre del ayuntamiento."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Quién es el titular de los gatos de una colonia?",
+    "opciones": [
+      "La persona cuidadora responsable",
+      "La protectora de la zona",
+      "El ayuntamiento",
+      "El dueño del terreno"
+    ],
+    "correcta": 2,
+    "explicacion": "El titular es el ayuntamiento, a cuyo nombre va el microchip. Quien cuida no es dueño de los gatos."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Es legal el corte en la punta de la oreja de los gatos comunitarios?",
+    "opciones": [
+      "No, es una mutilación prohibida",
+      "Solo si lo pide un vecino",
+      "Solo en gatos con dueño",
+      "Sí, la ley lo permite expresamente"
+    ],
+    "correcta": 3,
+    "explicacion": "La ley prohíbe mutilar animales, pero permite expresamente esta marca, que indica que el gato está esterilizado."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es un gato merodeador?",
+    "opciones": [
+      "Un gato con dueño que sale solo a la calle",
+      "Un gato de colonia que va cambiando de grupo",
+      "Un gato feral que vive en el monte",
+      "Un gato recién abandonado en la calle"
+    ],
+    "correcta": 0,
+    "explicacion": "El merodeador tiene dueño y sale solo a la calle. No es un gato comunitario: de él responde su dueño."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Se puede sacrificar a un gato de colonia porque molesta a los vecinos?",
+    "opciones": [
+      "Sí, si lo autoriza el ayuntamiento",
+      "Sí, si hay muchas quejas",
+      "No, está prohibido",
+      "Sí, si lo hace un veterinario"
+    ],
+    "correcta": 2,
+    "explicacion": "Sacrificar gatos está prohibido; solo se admite por problemas graves de salud del gato o casos excepcionales, y siempre por un veterinario."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Ves a alguien dejar un gato en la colonia. ¿A quién avisas?",
+    "opciones": [
+      "A la protectora más cercana de tu zona",
+      "A nadie, el gato se integrará",
+      "Solo a los demás cuidadores",
+      "Al ayuntamiento, o al 112 si urge"
+    ],
+    "correcta": 3,
+    "explicacion": "Abandonar un gato en una colonia es una infracción grave: avisa al ayuntamiento o, si es urgente, al 112."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Según la ley, ¿quién es la persona cuidadora de una colonia?",
+    "opciones": [
+      "Cualquier vecino que les dé de comer",
+      "Una persona autorizada que la atiende",
+      "El dueño del terreno donde están los gatos",
+      "El veterinario que esteriliza a los gatos"
+    ],
+    "correcta": 1,
+    "explicacion": "La persona cuidadora está autorizada y atiende la colonia siguiendo un método de gestión."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es envenenar una colonia de gatos?",
+    "opciones": [
+      "Una falta sin importancia",
+      "Una infracción solo municipal",
+      "Algo permitido si hay plaga",
+      "Un delito"
+    ],
+    "correcta": 3,
+    "explicacion": "El Código Penal castiga el maltrato que causa lesiones o la muerte de un animal: envenenar una colonia es un delito."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Si cambian las normas sobre colonias, ¿quién te lo comunicará?",
+    "opciones": [
+      "Tu ayuntamiento",
+      "La protectora de la zona",
+      "El veterinario de la clínica",
+      "Nadie, debes enterarte tú"
+    ],
+    "correcta": 0,
+    "explicacion": "Algunas normas aún están en desarrollo; si algo cambia, tu ayuntamiento te lo comunicará."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿En qué caso se permite retirar un gato de su colonia?",
+    "opciones": [
+      "Si un vecino lo pide por escrito",
+      "Si es un gatito que va a ser adoptado",
+      "Si la colonia ya tiene demasiados gatos",
+      "Si la persona cuidadora deja la colonia"
+    ],
+    "correcta": 1,
+    "explicacion": "Solo se retiran el gato enfermo que ya no puede valerse (lo valora el veterinario) y el gato sociable o el gatito que van a adoptarse."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Qué motivo podría justificar estudiar el traslado de una colonia?",
+    "opciones": [
+      "Que dañe fauna protegida",
+      "Que un comercio cercano se queje",
+      "Que los gatos hagan ruido de noche",
+      "Que la persona cuidadora se mude"
+    ],
+    "correcta": 0,
+    "explicacion": "Solo se estudia si peligra el gato, se dañan espacios o fauna protegidos o hay riesgo para las personas, y con supervisión veterinaria."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Se puede encerrar de forma permanente en un centro a un gato no socializado?",
+    "opciones": [
+      "Sí, si hay plazas libres",
+      "Sí, si lo pide la persona cuidadora",
+      "No, está prohibido",
+      "Sí, si tiene más de un año"
+    ],
+    "correcta": 2,
+    "explicacion": "Está prohibido encerrar gatos no socializados en centros, salvo durante un tratamiento o una reubicación."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino sin acreditar echa comida a los gatos en la calle. ¿Qué dicen muchas ordenanzas?",
+    "opciones": [
+      "Que está permitido a cualquiera",
+      "Que solo está prohibido de noche",
+      "Que se permite si usa pienso",
+      "Que suele estar sancionado"
+    ],
+    "correcta": 3,
+    "explicacion": "Muchas ordenanzas sancionan dar de comer a animales en la calle sin autorización; las personas cuidadoras acreditadas están exceptuadas."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino te exige que te lleves los gatos de la colonia. ¿Qué haces?",
+    "opciones": [
+      "Llevarte los gatos a otra zona más apartada",
+      "Quitar los comederos para que los gatos se vayan",
+      "Explicarle con calma que la ley no lo permite",
+      "Discutir con él hasta convencerlo"
+    ],
+    "correcta": 2,
+    "explicacion": "La ley no permite retirar los gatos. Explícaselo con calma y dile que puede quejarse por escrito al ayuntamiento; tú no muevas gatos ni comederos."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino quiere reclamar por daños causados por gatos de la colonia. ¿Adónde lo envías?",
+    "opciones": [
+      "A la persona cuidadora",
+      "Al ayuntamiento",
+      "A la protectora",
+      "Al veterinario"
+    ],
+    "correcta": 1,
+    "explicacion": "Quien cuida no es titular de los gatos. El titular es el ayuntamiento, así que las reclamaciones van allí."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Aparece en la colonia un gato que parece tener dueño. ¿Qué hay que hacer?",
+    "opciones": [
+      "Localizar a su dueño",
+      "Adoptarlo tú directamente",
+      "Dejarlo como gato de la colonia",
+      "Esterilizarlo y soltarlo allí"
+    ],
+    "correcta": 0,
+    "explicacion": "Un gato con dueño no es comunitario: responde su dueño, así que hay que localizarlo."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "¿Dónde se inscribe el microchip de un gato?",
+    "opciones": [
+      "En el registro de la clínica veterinaria",
+      "En el padrón municipal de habitantes",
+      "En la ficha de la protectora",
+      "En el registro de tu comunidad autónoma"
+    ],
+    "correcta": 3,
+    "explicacion": "El microchip se inscribe en el registro de identificación de tu comunidad autónoma, conectado a la red nacional."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Si tu comunidad autónoma tiene un protocolo marco de colonias, ¿qué pasa con tu programa municipal?",
+    "opciones": [
+      "Queda anulado",
+      "Debe respetarlo",
+      "Puede ignorarlo",
+      "Solo se aplica en las ciudades"
+    ],
+    "correcta": 1,
+    "explicacion": "El protocolo marco fija reglas mínimas, y el programa municipal debe respetarlas."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Encuentras restos de comida sospechosos y un gato muerto junto a la colonia. ¿Qué haces primero?",
+    "opciones": [
+      "Recoger los restos con las manos y tirarlos",
+      "Limpiar bien la zona y esperar a ver qué pasa",
+      "No tocar nada, hacer fotos y avisar",
+      "Llevarte a los demás gatos a tu casa"
+    ],
+    "correcta": 2,
+    "explicacion": "No toques cebos ni restos. Haz fotos, anota hora y lugar y avisa a la policía o al 112; después, al ayuntamiento."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "La ordenanza de tu municipio no menciona el abandono de gatos en colonias. ¿Se puede abandonar uno?",
+    "opciones": [
+      "Sí, si la ordenanza no lo prohíbe",
+      "No, lo prohíbe la ley estatal",
+      "Depende de la persona cuidadora",
+      "Sí, si el gato está esterilizado"
+    ],
+    "correcta": 1,
+    "explicacion": "La ley estatal rige en toda España aunque la ordenanza no lo diga, y prohíbe abandonar gatos en una colonia."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Un gato de la colonia está muy enfermo y ya no puede valerse. ¿Qué es lo correcto?",
+    "opciones": [
+      "Retirarlo tú a tu casa sin avisar",
+      "Dejarlo, nunca se puede retirar un gato",
+      "Soltarlo en una zona más tranquila",
+      "Que el veterinario valore si se retira"
+    ],
+    "correcta": 3,
+    "explicacion": "Retirar gatos está prohibido, salvo el gato enfermo que ya no puede valerse, y eso lo valora el veterinario."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué prohíbe la ley en relación con las colonias? Marca todas las correctas.",
+    "opciones": [
+      "Cazar gatos",
+      "Abandonar gatos en una colonia",
+      "Marcar la oreja al esterilizar",
+      "Retirar gatos sanos de su colonia sin motivo",
+      "Dar de comer siendo cuidador acreditado"
+    ],
+    "correctas": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "La ley prohíbe cazar, abandonar y retirar gatos de su colonia. La marca en la oreja es legal y la persona cuidadora acreditada puede alimentarlos."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿En qué te afecta la ley de protección animal de tu comunidad autónoma? Marca todas las correctas.",
+    "opciones": [
+      "El registro del microchip",
+      "El color de los comederos",
+      "Sus propias multas",
+      "El horario de la colonia",
+      "En algunas, la vacuna antirrábica"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "La ley autonómica fija el registro de identificación, sus propias multas y, en algunas comunidades, la vacuna antirrábica."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "multi",
+    "dificultad": "media",
+    "enunciado": "¿Qué debe incluir el programa municipal de gestión de colonias? Marca todas las correctas.",
+    "opciones": [
+      "Un pago anual de las personas cuidadoras",
+      "Formación de quienes cuidan",
+      "Censo y esterilización con marca en la oreja",
+      "Traslado anual de las colonias",
+      "Protocolos para conflictos vecinales"
+    ],
+    "correctas": [
+      1,
+      2,
+      4
+    ],
+    "explicacion": "El programa incluye formación, censo, esterilización con marca, programa sanitario y protocolos para terrenos privados y conflictos."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica con tus palabras por qué cuidar una colonia no te convierte en dueño de los gatos.",
+    "respuesta_referencia": "Porque el titular de los gatos es el ayuntamiento, a cuyo nombre va el microchip. Quien cuida está autorizado para atenderlos siguiendo el programa municipal.",
+    "puntos_clave": [
+      "El titular es el ayuntamiento, a cuyo nombre va el microchip",
+      "La persona cuidadora solo está autorizada para atenderlos siguiendo el programa"
+    ],
+    "explicacion": "La persona cuidadora no es titular ni responsable de los gatos: por eso las reclamaciones van al ayuntamiento."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Qué deben hacer los vecinos que no cuidan la colonia para respetarla?",
+    "respuesta_referencia": "Respetar a los gatos y sus comederos, e impedir que sus perros los dañen.",
+    "puntos_clave": [
+      "Respetar a los gatos y sus comederos",
+      "Impedir que sus perros hagan daño a los gatos"
+    ],
+    "explicacion": "La ley también pone obligaciones a toda la ciudadanía, no solo a quien cuida."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Cómo puede un vecino presentar una queja sobre una colonia ante el ayuntamiento?",
+    "respuesta_referencia": "Por escrito, con una instancia general en el registro municipal o en la sede electrónica del ayuntamiento.",
+    "puntos_clave": [
+      "Por escrito, con una instancia general",
+      "En el registro municipal o en la sede electrónica"
+    ],
+    "explicacion": "Las quejas van por escrito al ayuntamiento; la persona cuidadora no debe mover gatos ni comederos."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Explica qué relación hay entre la ley estatal, la de tu comunidad autónoma y las ordenanzas de tu municipio.",
+    "respuesta_referencia": "La ley estatal es la base y rige en toda España. La ley autonómica y las ordenanzas la desarrollan: pueden completarla o ser más exigentes, pero no contradecirla.",
+    "puntos_clave": [
+      "La ley estatal rige en toda España",
+      "Las normas autonómicas y municipales pueden completarla o ser más exigentes, pero no contradecirla"
+    ],
+    "explicacion": "Cada norma desarrolla la de rango superior; si una protege menos, manda la ley estatal."
+  },
+  {
+    "tema": "marco-legal",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "¿Qué indica el corte en la punta de la oreja de un gato y quién decide en qué oreja se hace?",
+    "respuesta_referencia": "Indica que el gato está esterilizado. Es una marca legal, y en qué oreja se hace lo decide cada programa municipal.",
+    "puntos_clave": [
+      "Indica que el gato está esterilizado",
+      "La oreja la decide cada programa o ayuntamiento"
+    ],
+    "explicacion": "La marca es legal y forma parte de la esterilización municipal; pregunta en tu ayuntamiento qué oreja usan."
+  }
+]

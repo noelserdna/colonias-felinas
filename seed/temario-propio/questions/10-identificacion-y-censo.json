@@ -1,0 +1,427 @@
+[
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es el microchip de un gato?",
+    "opciones": [
+      "Una placa metálica colgada de un collar",
+      "Una cápsula bajo la piel con un número",
+      "Un tatuaje dentro de la oreja",
+      "Una pulsera electrónica en la pata"
+    ],
+    "correcta": 1,
+    "explicacion": "Es una cápsula del tamaño de un grano de arroz, sin batería, que responde con un número al acercarle un lector."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Para qué sirve la marca en la punta de la oreja?",
+    "opciones": [
+      "Para saber quién es su dueño",
+      "Para indicar que ya tiene todas las vacunas",
+      "Para señalar que es sociable",
+      "Para ver de lejos que está esterilizado"
+    ],
+    "correcta": 3,
+    "explicacion": "La oreja cortada dice a varios metros que el gato ya está operado."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿A nombre de quién se registra el chip de un gato comunitario?",
+    "opciones": [
+      "Del ayuntamiento",
+      "De la persona cuidadora",
+      "Del veterinario",
+      "De la protectora"
+    ],
+    "correcta": 0,
+    "explicacion": "Los gatos comunitarios se registran a nombre del ayuntamiento y asociados a su colonia. Tú nunca figuras como titular."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿La oreja marcada sustituye al microchip?",
+    "opciones": [
+      "Sí, con la oreja basta",
+      "Sí, siempre que el gato sea adulto",
+      "No, tienen funciones distintas",
+      "Solo en las ciudades"
+    ],
+    "correcta": 2,
+    "explicacion": "El chip identifica al gato y a su titular; la oreja solo dice que está esterilizado."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Quién pone el microchip a un gato?",
+    "opciones": [
+      "La persona cuidadora",
+      "El ayuntamiento",
+      "Un veterinario",
+      "Un voluntario formado"
+    ],
+    "correcta": 2,
+    "explicacion": "El microchip lo implanta siempre un veterinario, con una aguja bajo la piel."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "El gato tiene el chip puesto, pero nadie lo ha dado de alta en el registro. ¿Sirve?",
+    "opciones": [
+      "No, sin alta no identifica a nadie",
+      "Sí, el chip identifica igual al gato",
+      "Solo sirve fuera de España",
+      "Sirve durante el primer año"
+    ],
+    "correcta": 0,
+    "explicacion": "El veterinario debe dar de alta el chip en el registro de identificación; sin alta no identifica a nadie."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Un gato de tu colonia ha fallecido. ¿Qué haces con su ficha?",
+    "opciones": [
+      "La borras",
+      "La dejas tal como estaba",
+      "Abres otra ficha",
+      "Cambias su situación"
+    ],
+    "correcta": 3,
+    "explicacion": "Si un gato deja la colonia, no se borra su ficha: se cambia su situación."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cuál es el mejor momento para contar los gatos de tu colonia?",
+    "opciones": [
+      "A mediodía, con calor",
+      "A la hora de la comida",
+      "Cuando no hay comida",
+      "De madrugada, una sola vez"
+    ],
+    "correcta": 1,
+    "explicacion": "Se cuenta a la hora de la comida, durante varios días y alguna vez a otra hora."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Tu ayuntamiento usa la aplicación para el censo. ¿Hay que repetirlo en papel?",
+    "opciones": [
+      "No, la aplicación es el registro oficial",
+      "Sí, siempre hay que llevar también el papel",
+      "Sí, lo exige siempre la ley",
+      "Solo si hay gatos nuevos"
+    ],
+    "correcta": 0,
+    "explicacion": "El censo de la aplicación es el registro oficial; si el ayuntamiento lo pide, la aplicación genera un PDF."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Para qué sirve sobre todo el pasaporte europeo de un animal?",
+    "opciones": [
+      "Para ver que está esterilizado",
+      "Para cobrar ayudas municipales",
+      "Para viajar a otro país",
+      "Para contarlo en el censo"
+    ],
+    "correcta": 2,
+    "explicacion": "El pasaporte europeo es la cartilla oficial del animal y sirve sobre todo para viajar."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Ves un gato de fuera con la punta de una oreja cortada. ¿Qué puedes saber por la marca?",
+    "opciones": [
+      "Que es macho",
+      "Que está esterilizado",
+      "Que viene de tu mismo pueblo",
+      "Que tiene dueño"
+    ],
+    "correcta": 1,
+    "explicacion": "Qué oreja se marca cambia de un programa a otro: la marca solo dice «esterilizado». Sexo y origen se confirman con el chip."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Tu colonia tiene 20 gatos y 18 están esterilizados. ¿Qué porcentaje es?",
+    "opciones": [
+      "El 18 %",
+      "El 80 %",
+      "El 20 %",
+      "El 90 %"
+    ],
+    "correcta": 3,
+    "explicacion": "Esterilizados entre el total, por cien: 18 de 20 es el 90 %, la meta de muchos programas."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un gato tiene la oreja marcada, pero no lleva chip. ¿Qué se suele hacer?",
+    "opciones": [
+      "Capturarlo cuanto antes solo para ponérselo",
+      "Sacarlo de la colonia",
+      "Marcarle también la otra oreja",
+      "Ponérselo la próxima vez que se le capture"
+    ],
+    "correcta": 3,
+    "explicacion": "No se suele capturar a un gato solo para ponerle el chip: se le pone cuando haya que capturarlo por otro motivo."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Tu colonia tiene 25 gatos. ¿Cómo evitas contar alguno dos veces?",
+    "opciones": [
+      "Contando una sola vez al día",
+      "Con las fichas y fotos delante",
+      "Contando solo a los que se acercan",
+      "Haciendo un cálculo a ojo"
+    ],
+    "correcta": 1,
+    "explicacion": "Con las fichas y sus fotos delante, fíjate en señas que no cambian: manchas, cola, cicatrices, oreja."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un gato come en tu colonia y en otra cercana. ¿Cuántas fichas tiene?",
+    "opciones": [
+      "Una en cada colonia",
+      "Ninguna",
+      "Una sola",
+      "Una por cuidadora"
+    ],
+    "correcta": 2,
+    "explicacion": "Cada gato consta en una sola ficha, anotando dónde se le ve más."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Varias personas cuidáis la misma colonia. ¿Quién cierra el censo?",
+    "opciones": [
+      "Una sola persona, con los datos de todas",
+      "Cada una envía su propio censo",
+      "El veterinario de la clínica",
+      "Quien haya visto más gatos"
+    ],
+    "correcta": 0,
+    "explicacion": "Repartid días y tareas, pero que el censo lo cierre una sola persona con los datos de todas."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "A la comida viene a veces un gato limpio, con collar y muy confiado. ¿Qué haces?",
+    "opciones": [
+      "Lo cuentas como gato de la colonia",
+      "Lo anotas en observaciones, sin contarlo",
+      "Lo capturas para esterilizarlo",
+      "Le quitas el collar para identificarlo"
+    ],
+    "correcta": 1,
+    "explicacion": "Seguramente tiene casa. No se cuenta como de la colonia: se anota en observaciones y se avisa si cría o se queda."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un gato de tu colonia ha sido adoptado. ¿A quién avisas?",
+    "opciones": [
+      "Al ayuntamiento, para cambiar el titular",
+      "A la clínica, para que le quiten el chip",
+      "A nadie, basta con la ficha",
+      "A los vecinos del barrio"
+    ],
+    "correcta": 0,
+    "explicacion": "El ayuntamiento debe pasar el chip a nombre de la persona adoptante. En su ficha, cambia su situación a adoptado."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "En la clínica, un gato recién llegado tiene chip de un particular. ¿Qué se hace?",
+    "opciones": [
+      "Se esteriliza y se queda",
+      "Se le pone otro chip",
+      "Se busca a su dueño",
+      "Se lleva a otra colonia"
+    ],
+    "correcta": 2,
+    "explicacion": "Con chip de un particular es un gato perdido o abandonado: se busca a su dueño."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Al comparar censos ves que llegan gatos nuevos a menudo. ¿Qué suele indicar?",
+    "opciones": [
+      "Que la colonia está bien gestionada",
+      "Que se les da demasiada comida",
+      "Que el censo se hace muy a menudo",
+      "Abandonos o una colonia cercana sin controlar"
+    ],
+    "correcta": 3,
+    "explicacion": "Si llegan gatos nuevos con frecuencia, hay abandonos o una colonia cercana sin controlar."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Un gato nuevo, sin chip y nada sociable, pasa por la clínica. ¿Qué será de él?",
+    "opciones": [
+      "Se esteriliza y se queda en la colonia",
+      "Se entrega en adopción",
+      "Se lleva a un refugio",
+      "Se busca a su antiguo dueño"
+    ],
+    "correcta": 0,
+    "explicacion": "Sin chip y sin socializar, se esteriliza y se queda en la colonia. Si fuera sociable, se buscaría adopción."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "En un año tu colonia pasa de 20 a 17 gatos y no ha habido camadas. ¿Cómo va?",
+    "opciones": [
+      "Mal, deberían nacer gatitos",
+      "Mal, el total debería subir",
+      "Bien, el programa funciona",
+      "Mal, se están perdiendo gatos"
+    ],
+    "correcta": 2,
+    "explicacion": "Si el total baja poco a poco y no hay camadas, el programa funciona."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué anotas en la ficha de un gato? Marca todas las correctas.",
+    "opciones": [
+      "Una foto del gato",
+      "Los vecinos que se quejan",
+      "Color, manchas y cicatrices",
+      "Lo que gastas en comida",
+      "Su situación: en la colonia, adoptado…"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "La ficha lleva foto, descripción para reconocerlo y su situación, además de observaciones e intervenciones."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué es cierto del microchip? Marca todas las correctas.",
+    "opciones": [
+      "Se ve a varios metros",
+      "Lo pone un veterinario",
+      "Lleva una pila que se cambia",
+      "Identifica al gato y a su titular",
+      "Lo puede poner la cuidadora"
+    ],
+    "correctas": [
+      1,
+      3
+    ],
+    "explicacion": "El chip lo implanta un veterinario, no tiene batería e identifica al gato y a su titular. Lo que se ve de lejos es la oreja."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "multi",
+    "dificultad": "media",
+    "enunciado": "Vas a hacer el censo de tu colonia. ¿Qué pasos son correctos? Marca todas las correctas.",
+    "opciones": [
+      "Contar a la hora de comer, varios días",
+      "Borrar las fichas de los que no están",
+      "Dar de alta a los gatos nuevos",
+      "Contar una sola vez para ir rápido",
+      "Indicar cuántos son adoptables y enfermos"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "Se cuenta varios días, se dan de alta los nuevos, se cambia la situación de los que faltan (sin borrar) y se indica adoptables y enfermos."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica con tus palabras la diferencia entre el microchip y la marca de la oreja.",
+    "respuesta_referencia": "El microchip identifica al gato y a su titular, y se lee con un lector. La oreja marcada solo sirve para ver de lejos que está esterilizado.",
+    "puntos_clave": [
+      "El microchip identifica al gato y a su titular",
+      "La oreja marcada indica de lejos que está esterilizado"
+    ],
+    "explicacion": "Son dos marcas con funciones distintas: una no sustituye a la otra."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Un gato se va de tu colonia. ¿Qué haces con su ficha en la aplicación?",
+    "respuesta_referencia": "No la borro: cambio su situación a adoptado, fallecido, desaparecido o la que corresponda.",
+    "puntos_clave": [
+      "No se borra la ficha",
+      "Se cambia su situación (adoptado, fallecido, desaparecido…)"
+    ],
+    "explicacion": "Cambiar la situación conserva la historia del gato y mantiene el censo al día."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Qué debes hacer si aparecen gatitos o varios gatos nuevos en tu colonia?",
+    "respuesta_referencia": "Avisar al ayuntamiento cuanto antes, sin esperar al próximo censo.",
+    "puntos_clave": [
+      "Avisar al ayuntamiento",
+      "Hacerlo enseguida, sin esperar al censo"
+    ],
+    "explicacion": "El ayuntamiento necesita saberlo cuanto antes para actuar."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Aparece en tu colonia un gato que no conoces y no tiene la oreja marcada. ¿Qué harías?",
+    "respuesta_referencia": "Observarlo unos días y hacerle una foto, y avisar al ayuntamiento para programar su captura. En la clínica le leerán el chip.",
+    "puntos_clave": [
+      "Observarlo y hacerle una foto",
+      "Avisar al ayuntamiento para programar su captura",
+      "En la clínica se le lee el chip"
+    ],
+    "explicacion": "Según lo que diga el chip y si es sociable, se busca a su dueño, adopción o se esteriliza y se queda."
+  },
+  {
+    "tema": "identificacion-y-censo",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Ves un gato de otro sitio con la punta de una oreja cortada. ¿Qué sabes de él y qué no?",
+    "respuesta_referencia": "Sé que casi seguro está esterilizado. No sé su sexo ni de dónde viene, porque cada programa marca una oreja distinta: eso lo dice el chip.",
+    "puntos_clave": [
+      "Probablemente está esterilizado",
+      "El sexo y el origen no se deducen por la oreja: se confirman con el chip"
+    ],
+    "explicacion": "Qué oreja se marca lo fija cada programa, así que la marca solo dice «esterilizado»."
+  }
+]

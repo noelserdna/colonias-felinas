@@ -1,0 +1,426 @@
+[
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Qué significa CER?",
+    "opciones": [
+      "Control, esterilización y reubicación",
+      "Captura, esterilización y retorno",
+      "Censo, entrega y recogida",
+      "Captura, evaluación y refugio"
+    ],
+    "correcta": 1,
+    "explicacion": "CER es capturar, esterilizar y devolver al gato a su sitio. La palabra clave es «retorno»."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Adónde se devuelve un gato después de esterilizarlo en el CER?",
+    "opciones": [
+      "A una protectora de la zona",
+      "A cualquier colonia de los alrededores",
+      "A un refugio municipal",
+      "Al mismo sitio donde se capturó"
+    ],
+    "correcta": 3,
+    "explicacion": "El retorno es siempre al mismo lugar: es su territorio y su grupo. Soltarlo en otro sitio es abandonarlo."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "La víspera de una captura, ¿qué se retira a los gatos?",
+    "opciones": [
+      "Solo la comida",
+      "La comida y el agua",
+      "Solo el agua",
+      "Nada, todo sigue igual"
+    ],
+    "correcta": 0,
+    "explicacion": "Se retira la comida para que entren con hambre en la jaula, pero el agua no se retira nunca."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cuántos gatos se capturan en cada jaula trampa?",
+    "opciones": [
+      "Dos, si son de la misma colonia",
+      "Una madre con sus gatitos",
+      "Uno solo",
+      "Todos los que quepan"
+    ],
+    "correcta": 2,
+    "explicacion": "Se usa una jaula por gato, y alguna de reserva. Así se evitan fugas, contagios y confusiones."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Acaba de caer un gato en la jaula trampa. ¿Qué haces primero?",
+    "opciones": [
+      "Abrirla para ver si está herido",
+      "Dejarla al sol para que se calme",
+      "Tapar la jaula con una tela",
+      "Darle agua con la mano"
+    ],
+    "correcta": 2,
+    "explicacion": "Al tapar la jaula el gato se tranquiliza casi al instante. Nunca se abre ni se mete la mano."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Dónde se pone el cebo dentro de la jaula trampa?",
+    "opciones": [
+      "Al fondo, tras la plataforma",
+      "Justo en la entrada",
+      "Fuera, junto a la puerta",
+      "Encima del techo de la jaula"
+    ],
+    "correcta": 0,
+    "explicacion": "El cebo va al fondo, detrás de la plataforma que cierra la puerta, con un rastro de jugo hacia la entrada."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "Mientras esperas a que caigan los gatos, ¿qué haces con las jaulas?",
+    "opciones": [
+      "Te vas y vuelves al día siguiente",
+      "Te sientas a su lado para calmarlos",
+      "Las dejas con un cartel de aviso",
+      "Las vigilas sin perderlas de vista"
+    ],
+    "correcta": 3,
+    "explicacion": "Te apartas de su vista, pero sin dejar de ver las jaulas ni un momento. Una jaula sola es un peligro para el gato."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cómo se lleva en coche la jaula con un gato capturado?",
+    "opciones": [
+      "En el maletero, bien cerrado",
+      "Tapada y sujeta en el habitáculo",
+      "Destapada, para que respire",
+      "Apilada encima de las demás jaulas"
+    ],
+    "correcta": 1,
+    "explicacion": "La jaula viaja tapada, dentro del habitáculo, sujeta y sin apilar. Nunca en el maletero."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Cómo se marca la oreja de un gato esterilizado?",
+    "opciones": [
+      "Con un corte recto en la punta",
+      "Con una muesca en el borde",
+      "Con un pendiente de color",
+      "Con un tatuaje por dentro de la oreja"
+    ],
+    "correcta": 0,
+    "explicacion": "Se corta en recto la punta, con el gato anestesiado. Una muesca se confundiría con una herida de pelea."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "baja",
+    "enunciado": "¿Quién decide cuándo vuelve el gato a la colonia tras la operación?",
+    "opciones": [
+      "La persona cuidadora",
+      "Los vecinos de la zona",
+      "El veterinario",
+      "La protectora local"
+    ],
+    "correcta": 2,
+    "explicacion": "Cuándo vuelve lo decide el veterinario; lo ideal es cuanto antes, en unas 24 horas si se ha recuperado bien."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Tras soltarlo, un gato esterilizado no aparece en una semana. ¿Qué haces?",
+    "opciones": [
+      "Das de baja su ficha como fallecido",
+      "Sigues vigilando a la hora de comer",
+      "Lo buscas para capturarlo de nuevo",
+      "Quitas la comida de ese punto"
+    ],
+    "correcta": 1,
+    "explicacion": "Es normal que desaparezca unos días, incluso una o dos semanas. Vigílalo a la hora de la comida."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "El gato capturado se golpea contra la jaula. ¿Qué haces?",
+    "opciones": [
+      "La abres para calmarlo",
+      "Le das un calmante tuyo",
+      "Lo sacas con guantes",
+      "La tapas y esperas"
+    ],
+    "correcta": 3,
+    "explicacion": "Aunque se golpee, no se abre la jaula ni se mete la mano. Tapada, el gato se calma."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Cae en la jaula un gato que se deja acariciar y ronronea. ¿Qué se valora?",
+    "opciones": [
+      "Soltarlo sin operar",
+      "Llevarlo a otra colonia",
+      "Quedártelo sin avisar",
+      "Buscarle adopción"
+    ],
+    "correcta": 3,
+    "explicacion": "Los gatos sociables pueden ir a adopción. En la duda, se tratan como no socializados."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Cae un gato con la punta de la oreja ya cortada y se le ve bien. ¿Qué haces?",
+    "opciones": [
+      "Lo llevas a operar igualmente",
+      "Lo sueltas enseguida",
+      "Lo tienes en la jaula hasta la noche",
+      "Lo trasladas a otra colonia"
+    ],
+    "correcta": 1,
+    "explicacion": "La oreja cortada indica que ya está esterilizado. Si está bien, se suelta; si parece enfermo, consulta con la clínica."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "En la clínica, el gato capturado tiene un chip a nombre de un particular. ¿Qué pasa?",
+    "opciones": [
+      "Se esteriliza y vuelve a la colonia",
+      "Se le pone un segundo chip",
+      "Se para el CER y se avisa al dueño",
+      "Se suelta sin avisar a nadie"
+    ],
+    "correcta": 2,
+    "explicacion": "Si tiene dueño, no es de la colonia: se trata como perdido o abandonado y se avisa a su dueño."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "En tu barrio hay varias colonias cercanas. ¿Qué hace que el CER funcione?",
+    "opciones": [
+      "Trabajar por zonas, sin dejar islas",
+      "Esterilizar solo tu colonia",
+      "Trasladar lejos los gatos de las otras",
+      "Dar menos comida a los nuevos"
+    ],
+    "correcta": 0,
+    "explicacion": "Si se esteriliza una colonia y la de al lado no, los huecos se rellenan enseguida. Hay que coordinarse por zonas."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Una colonia vive en el recinto vallado de un hospital. ¿Cómo entras a poner jaulas?",
+    "opciones": [
+      "Entras sin más: son gatos comunitarios",
+      "Con permiso de quien gestiona el recinto",
+      "Entras cuando el vigilante no mira",
+      "Te basta con enseñar tu acreditación"
+    ],
+    "correcta": 1,
+    "explicacion": "Para entrar en recintos hace falta permiso de quien lo gestione, y suele tramitarlo el ayuntamiento. No entres por tu cuenta."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Un vecino abre tus jaulas y te increpa durante la captura. ¿Qué haces?",
+    "opciones": [
+      "Explicas con calma y muestras tu acreditación",
+      "Discutes con él hasta que se vaya",
+      "Recoges todo y no vuelves nunca",
+      "Le grabas y lo subes a las redes"
+    ],
+    "correcta": 0,
+    "explicacion": "No discutas: explica con calma y enseña tu acreditación. Si hay amenazas o dañan el material, apártate y llama al 112."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "media",
+    "enunciado": "Cae en la jaula una gata que está criando. ¿Qué se hace?",
+    "opciones": [
+      "Se queda en custodia hasta el destete",
+      "Se lleva a una casa con sus crías",
+      "Se opera con prioridad y vuelve pronto",
+      "Se tiene encerrada unas semanas"
+    ],
+    "correcta": 2,
+    "explicacion": "Mejor no capturar a las lactantes, pero si cae se opera con prioridad y vuelve cuanto antes con sus crías."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "En tu colonia de 30 gatos se esterilizan solo dos o tres al año. ¿Qué pasará?",
+    "opciones": [
+      "Bajará a la mitad",
+      "Se irá a otra zona",
+      "Dejará de tener crías",
+      "Seguirá creciendo"
+    ],
+    "correcta": 3,
+    "explicacion": "El CER solo reduce la colonia si se hace deprisa y casi a todos. Por debajo del 70-75 % la población sigue creciendo."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "El día fijado para la captura hay una fuerte ola de calor. ¿Qué es lo mejor?",
+    "opciones": [
+      "Valorar con el ayuntamiento aplazarla",
+      "Capturar a mediodía, cuando comen",
+      "Dejar las jaulas al sol con agua",
+      "Retirar también el agua la víspera"
+    ],
+    "correcta": 0,
+    "explicacion": "Con calor o frío extremos se valora aplazar la captura: un gato en una jaula puede morir de calor."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "mc",
+    "dificultad": "alta",
+    "enunciado": "Al ir a soltar una gata operada, ves con la linterna la herida hinchada. ¿Qué haces?",
+    "opciones": [
+      "La sueltas, ya se curará sola",
+      "Le pones una pomada tú misma",
+      "Llamas a la clínica antes de soltarla",
+      "La sueltas y la vigilas de lejos"
+    ],
+    "correcta": 2,
+    "explicacion": "Sangrado, pus o hinchazón en la herida son motivo para llamar a la clínica. No le des medicamentos por tu cuenta."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué material necesitas para una jornada de captura? Marca todas las correctas.",
+    "opciones": [
+      "Una jaula trampa por gato",
+      "Un collar para cada gato",
+      "Cebo oloroso, como lata de pescado",
+      "Telas grandes para tapar las jaulas",
+      "Pastillas para calmar a los gatos"
+    ],
+    "correctas": [
+      0,
+      2,
+      3
+    ],
+    "explicacion": "Hacen falta una jaula por gato, cebo oloroso y telas para tapar. Nunca se dan medicamentos por tu cuenta."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "multi",
+    "dificultad": "baja",
+    "enunciado": "¿Qué se hace antes del día de la captura? Marca todas las correctas.",
+    "opciones": [
+      "Un censo con fotos de los gatos",
+      "Cambiar cada día el sitio de la comida",
+      "Coordinarse con el ayuntamiento y la clínica",
+      "Retirar el agua dos días antes",
+      "Dar de comer a la misma hora y en el mismo punto"
+    ],
+    "correctas": [
+      0,
+      2,
+      4
+    ],
+    "explicacion": "El censo dice a quién buscas, la rutina de comida los reúne y la coordinación asegura la clínica. El agua nunca se retira."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "multi",
+    "dificultad": "media",
+    "enunciado": "Vas a devolver un gato operado a su colonia. ¿Qué es correcto? Marca todas las correctas.",
+    "opciones": [
+      "Soltarlo en el punto exacto de la etiqueta",
+      "Soltarlo donde haya menos vecinos",
+      "Orientar la puerta hacia una zona segura",
+      "Sacarlo con las manos para que no se asuste",
+      "Abrir la jaula junto a la calzada"
+    ],
+    "correctas": [
+      0,
+      2
+    ],
+    "explicacion": "Vuelve al punto exacto donde se capturó, con la puerta hacia una zona de huida segura, y sale solo."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "Explica con tus palabras por qué el gato debe volver al mismo sitio donde se capturó.",
+    "respuesta_referencia": "Porque ese lugar es su territorio y allí está su grupo; soltarlo en otro sitio no es CER, es abandonarlo.",
+    "puntos_clave": [
+      "Es su territorio y su grupo",
+      "Soltarlo en otro sitio es abandonarlo"
+    ],
+    "explicacion": "El retorno al mismo lugar es la clave del CER."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Por qué tapas la jaula en cuanto cae un gato, y por qué no la abres?",
+    "respuesta_referencia": "Porque tapada el gato se tranquiliza casi al instante. No se abre ni se mete la mano, aunque se golpee, porque puede escaparse o herirte.",
+    "puntos_clave": [
+      "Tapar la jaula calma al gato",
+      "No se abre ni se mete la mano aunque se golpee"
+    ],
+    "explicacion": "Tapar y esperar es lo correcto; abrir la jaula pone en riesgo al gato y a ti."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "written",
+    "dificultad": "baja",
+    "enunciado": "¿Por qué no debes dejar una jaula trampa montada y marcharte?",
+    "respuesta_referencia": "Porque puede caer otro animal, alguien puede soltar o dañar al gato, o el gato puede morir de calor o de frío. Hay que vigilarla siempre.",
+    "puntos_clave": [
+      "Las jaulas se vigilan todo el tiempo",
+      "Si la dejas sola, el gato corre peligro (otro animal, personas, calor o frío)"
+    ],
+    "explicacion": "Te apartas de la vista de los gatos, pero nunca pierdes de vista las jaulas."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Tu colonia ya está casi toda esterilizada y aparece un gato nuevo sin marcar. ¿Qué harías?",
+    "respuesta_referencia": "Avisar al ayuntamiento para que se capture y se esterilice, o se busque adopción si es sociable. Cada gato nuevo sin esterilizar deshace parte del trabajo.",
+    "puntos_clave": [
+      "Avisar al ayuntamiento o al responsable del programa",
+      "Que se capture y esterilice (o adopción si es sociable)"
+    ],
+    "explicacion": "Vigilar a los recién llegados es una de las condiciones para que el CER funcione."
+  },
+  {
+    "tema": "metodo-cer",
+    "tipo": "written",
+    "dificultad": "media",
+    "enunciado": "Explica por qué el CER hecho a medias apenas sirve.",
+    "respuesta_referencia": "Porque las hembras que quedan sin operar siguen criando y sus crías sobreviven mejor. Hay que esterilizar deprisa casi a todos y en toda la zona.",
+    "puntos_clave": [
+      "Las hembras sin operar siguen criando",
+      "Hay que hacerlo deprisa, casi a todos y en toda la zona"
+    ],
+    "explicacion": "Por debajo del 70-75 % esterilizado, la colonia sigue creciendo."
+  }
+]
